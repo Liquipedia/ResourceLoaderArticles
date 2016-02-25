@@ -1,0 +1,24 @@
+{
+	"name": "ResourceLoaderArticles",
+	"version": "1.0",
+	"author": [
+		"Alex Winkler"
+	],
+	"url": "https://github.com/Liquipedia/MediaWiki-ResourceLoader-for-Articles",
+	"descriptionmsg": "Serves multiple MediaWiki articles combined together (and minified) as JS or CSS resources.",
+	"license-name": "GPL-2.0+",
+	"type": "other",
+        "requires": {
+                "MediaWiki": ">= 1.25.0"
+        },
+	"AutoloadClasses": {
+		"ResourceLoaderPagesModule": "ResourceLoaderPagesModule.php",
+		"ResourceLoaderPagesModuleHooks": "ResourceLoaderPagesModuleHooks.php"
+	},
+	"Hooks": {
+		"ResourceLoaderRegisterModules": [
+			"ResourceLoaderPagesModuleHooks::onResourceLoaderRegisterModules"
+		]
+	},
+	"manifest_version": 1
+}
