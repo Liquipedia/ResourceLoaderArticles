@@ -16,10 +16,15 @@ class ResourceLoaderPagesModuleHooks {
 			wfProfileOut(__METHOD__);
 			return true;
 		}
+                
+                $text = '';
+		foreach($articles as $article) {
+                        $articleObj = new Article(Title::newFromText($article));
+                        $text .= $articleObj->getContent();
+		}
 
 		// prepare fake ResourceLoader module metadata
-		$timestamp = time();
-		$moduleName = md5( serialize( array( $articles ) . ($timestamp - ($timestamp % 86400)) ) );
+		$moduleName = md5( serialize( array( $articles ) ) . $text );
 		$moduleFullName = 'liquipedia.module.articles.' . $moduleName;
 		$moduleInfo = array(
 			'class' => 'ResourceLoaderPagesModule',
