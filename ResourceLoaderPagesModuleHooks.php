@@ -16,11 +16,11 @@ class ResourceLoaderPagesModuleHooks {
 			wfProfileOut(__METHOD__);
 			return true;
 		}
-                
-                $text = '';
+
+		$text = '';
 		foreach($articles as $article) {
-                        $articleObj = new Article(Title::newFromText($article));
-                        $text .= $articleObj->getContent();
+			$articleObj = new Article(Title::newFromText($article));
+			$text .= $articleObj->getContent();
 		}
 
 		// prepare fake ResourceLoader module metadata
