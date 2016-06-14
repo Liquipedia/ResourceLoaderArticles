@@ -9,7 +9,7 @@
 	"license-name": "GPL-2.0+",
 	"type": "other",
 	"requires": {
-		"MediaWiki": ">= 1.25.0"
+		"MediaWiki": ">= 1.26.0"
 	},
 	"AutoloadClasses": {
 		"ResourceLoaderPagesModule": "ResourceLoaderPagesModule.php",

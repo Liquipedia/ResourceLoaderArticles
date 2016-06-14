@@ -40,70 +40,24 @@ class ResourceLoaderPagesModule extends ResourceLoaderWikiModule {
 	 * @param ResourceLoaderContext $context
 	 * @return array
 	 */
-//	public function getStyles( ResourceLoaderContext $context ) {
-//		$styles = array();
-//		foreach ( $this->getPages( $context ) as $titleText => $options ) {
-//			if ( $options['type'] !== 'style' ) {
-//				continue;
-//			}
-//			$media = isset( $options['media'] ) ? $options['media'] : 'all';
-//			$style = $this->getContent( $titleText );
-//			if ( strval( $style ) === '' ) {
-//				continue;
-//			}
-//			
-//			/* start of less parser */
-//			if ( !strpos($style, '@import')) {
-//				try {
-//					$lessc = new Less_Parser;
-//					$lessc->parse($style);
-//					$style = $lessc->getCss();
-//				} catch (exception $e) {
-//					$style = '/* invalid less: ' . $e->getMessage() . ' */';
-//				}
-//			} else {
-//				$style = '/* using @import is forbidden */';
-//			}
-//			/* end of less parser */
-//			
-//			if ( $this->getFlip( $context ) ) {
-//				$style = CSSJanus::transform( $style, true, false );
-//			}
-//			$style = CSSMin::remap( $style, false, $this->getConfig()->get( 'ScriptPath' ), true );
-//			if ( !isset( $styles[$media] ) ) {
-//				$styles[$media] = array();
-//			}
-//			$style = ResourceLoader::makeComment( $titleText ) . $style;
-//			$styles[$media][] = $style;
-//		}
-//		return $styles;
-//	}
-
-	/**
-	 * @param ResourceLoaderContext $context
-	 * @return array
-	 */
 	public function getStyles( ResourceLoaderContext $context ) {
-		$styles = array();
+		$styles = [];
 		foreach ( $this->getPages( $context ) as $titleText => $options ) {
 			if ( $options['type'] !== 'style' ) {
 				continue;
 			}
-			$title = Title::newFromText( $titleText );
-			if ( !$title || $title->isRedirect() ) {
-				continue;
-			}
 			$media = isset( $options['media'] ) ? $options['media'] : 'all';
-			$style = $this->getContent( $title );
+			$style = $this->getContent( $titleText );
 			if ( strval( $style ) === '' ) {
 				continue;
 			}
 			
 			/* start of less parser */
-			if ( !strpos($style, '@import')) {
+			if ( strpos($style, '@import') === false ) {
 				try {
-					$lessc = new lessc;
-					$style = $lessc->compile($style);
+					$lessc = new Less_Parser;
+					$lessc->parse($style);
+					$style = $lessc->getCss();
 				} catch (exception $e) {
 					$style = '/* invalid less: ' . $e->getMessage() . ' */';
 				}
@@ -115,9 +69,10 @@ class ResourceLoaderPagesModule extends ResourceLoaderWikiModule {
 			if ( $this->getFlip( $context ) ) {
 				$style = CSSJanus::transform( $style, true, false );
 			}
-			$style = CSSMin::remap( $style, false, $this->getConfig()->get( 'ScriptPath' ), true );
+			$style = MemoizedCallable::call( 'CSSMin::remap',
+				[ $style, false, $this->getConfig()->get( 'ScriptPath' ), true ] );
 			if ( !isset( $styles[$media] ) ) {
-				$styles[$media] = array();
+				$styles[$media] = [];
 			}
 			$style = ResourceLoader::makeComment( $titleText ) . $style;
 			$styles[$media][] = $style;

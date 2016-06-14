@@ -15,3 +15,7 @@ Include a line similar to the ones shown here to your MediaWiki:Common.js or Med
 
 	/load.php?articles=ArticleOne.js|ArticleTwo.js&only=scripts&mode=articles
 	/load.php?articles=ArticleOne.css|ArticleTwo.css&only=styles&mode=articles
+
+Version
+=======
+This version is for MediaWiki 1.26 and 1.27, for a MediaWiki 1.25 version go to the 1.25 branch.
