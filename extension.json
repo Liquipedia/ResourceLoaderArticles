@@ -18,7 +18,16 @@
 	"Hooks": {
 		"ResourceLoaderRegisterModules": [
 			"ResourceLoaderPagesModuleHooks::onResourceLoaderRegisterModules"
+		],
+		"MagicWordwgVariableIDs": [
+			"ResourceLoaderPagesModuleHooks::onMagicWordwgVariableIDs"
+		],
+		"ParserGetVariableValueSwitch": [
+			"ResourceLoaderPagesModuleHooks::onParserGetVariableValueSwitch"
 		]
+	},
+	"ExtensionMessagesFiles": {
+		"MagicWords": "MagicWords.php"
 	},
 	"manifest_version": 1
 }
