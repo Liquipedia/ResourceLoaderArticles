@@ -34,17 +34,6 @@ class ResourceLoaderPagesModuleHooks {
 		$wgRequest->setVal('modules', $moduleFullName);
 		return true;
 	}
-	static public function onMagicWordwgVariableIDs( &$aCustomVariableIds ) {
-		$aCustomVariableIds[] = 'skinname';
-		return true;
-	}
-	static public function onParserGetVariableValueSwitch( &$parser, &$cache, &$magicWordId, &$ret, &$frame ) {
-		if( $magicWordId == 'skinname' ) {
-			$rl = new RequestContext;
-			$ret = $rl->getUser()->getOption( 'skin' );
-		}
-		return true;
-	}
 }
 
 ?>
