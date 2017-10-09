@@ -1,0 +1,9 @@
+{
+	"@metadata": {
+		"authors": [
+			"Alex Winkler"
+		]
+	},
+	"resourceloaderarticles": "ResourceLoaderArticles",
+	"resourceloaderarticles-desc": "Serves multiple MediaWiki articles combined together (and minified) as JS or CSS resources."
+}

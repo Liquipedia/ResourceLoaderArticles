@@ -7,7 +7,7 @@ Installation
 * Extract the extension folder to extensions/ResourceLoaderArticles/
 * Add the following line to LocalSettings.php:
 
-	wfLoadExtension( 'ResourceLoaderArticles' );
+	wfLoadExtension( 'MediaWiki-ResourceLoader-for-Articles' );
 
 Usage
 =====

@@ -2,14 +2,19 @@
 	"name": "ResourceLoaderArticles",
 	"version": "1.1",
 	"author": [
-		"Alex Winkler"
+		"[http://fo-nttax.de Alex Winkler]"
 	],
 	"url": "https://github.com/Liquipedia/MediaWiki-ResourceLoader-for-Articles",
-	"descriptionmsg": "Serves multiple MediaWiki articles combined together (and minified) as JS or CSS resources.",
+	"descriptionmsg": "resourceloaderarticles-desc",
 	"license-name": "GPL-2.0+",
 	"type": "other",
 	"requires": {
 		"MediaWiki": ">= 1.26.0"
+	},
+	"MessagesDirs": {
+		"MediaWiki-ResourceLoader-for-Articles": [
+			"i18n"
+		]
 	},
 	"AutoloadClasses": {
 		"ResourceLoaderPagesModule": "ResourceLoaderPagesModule.php",
