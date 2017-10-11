@@ -12,7 +12,7 @@
 		"MediaWiki": ">= 1.26.0"
 	},
 	"MessagesDirs": {
-		"MediaWiki-ResourceLoader-for-Articles": [
+		"ResourceLoaderArticles": [
 			"i18n"
 		]
 	},
