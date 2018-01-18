@@ -17,6 +17,9 @@ class ResourceLoaderPagesModuleHooks {
 		$text = '';
 		foreach( $articles as $article ) {
 			$title = Title::newFromText( $article );
+			if( !$title ) {
+				continue;
+			}
 
 			$handler = ContentHandler::getForTitle( $title );
 			if ( $handler->isSupportedFormat( CONTENT_FORMAT_CSS ) ) {
