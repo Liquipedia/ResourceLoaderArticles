@@ -30,7 +30,7 @@ class ResourceLoaderArticlesModule extends ResourceLoaderWikiModule {
 		}
 		$pages = [];
 		foreach ( $articles as $article ) {
-			if ( !wfMessage( 'liquiflow-css-urls' )->exists() || strpos( wfMessage( 'liquiflow-css-urls' )->plain(), 'CACHEBUST' ) === false ) { // TODO: Remove
+			if ( !wfMessage( 'liquiflow-css-urls' )->inLanguage( 'en' )->exists() || strpos( wfMessage( 'liquiflow-css-urls' )->inLanguage( 'en' )->plain(), 'CACHEBUST' ) === false ) { // TODO: Remove
 				if ( substr( $article, 0, 10 ) === 'MediaWiki:' ) { // TODO: Remove
 					continue; // TODO: Remove
 				} // TODO: Remove
