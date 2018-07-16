@@ -205,13 +205,13 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 
 		$htmlForm = HTMLForm::factory( 'ooui', $formDescriptor, $this->getContext() );
 		$htmlForm->setSubmitText( $this->msg( 'resourceloaderarticles-delete-page' )->text() );
-		$htmlForm->setFormIdentifier( 'detelePageCB' );
-		$htmlForm->setSubmitCallback( [ $this, 'detelePageCB' ] );
+		$htmlForm->setFormIdentifier( 'deletePageCB' );
+		$htmlForm->setSubmitCallback( [ $this, 'deletePageCB' ] );
 
 		$htmlForm->show();
 	}
 
-	public function detelePageCB( $formData ) {
+	public function deletePageCB( $formData ) {
 		$output = $this->getOutput();
 		$dbw = wfGetDB( DB_MASTER );
 		$dbw->delete( 'resourceloaderarticles', [ 'rla_id' => $formData[ 'Id' ] ] );
