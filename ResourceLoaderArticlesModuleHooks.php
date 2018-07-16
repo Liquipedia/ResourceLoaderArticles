@@ -85,14 +85,12 @@ class ResourceLoaderArticlesModuleHooks {
 			}
 		}
 		$scripts[] = 'CoreEnd.js';
-		if ( !$out->msg( 'liquiflow-css-urls' )->exists() || strpos( $out->msg( 'liquiflow-css-urls' )->plain(), 'CACHEBUST' ) === false ) { // TODO: Remove
-			if ( $addScript ) {
-				$out->addScriptFile( $wikiUrl . '?articles=' . implode( '|', $scripts ) . '&only=scripts&mode=articles&cacheversion=' . $out->msg( 'resourceloaderarticles-cacheversion' )->text() . '&*' );
-			}
-			if ( $addStyle ) {
-				$out->addStyle( $wikiUrl . '?articles=' . implode( '|', $styles ) . '&only=styles&mode=articles&cacheversion=' . $out->msg( 'resourceloaderarticles-cacheversion' )->text() . '&*' );
-			}
-		} // TODO: Remove
+		if ( $addScript ) {
+			$out->addScriptFile( $wikiUrl . '?articles=' . implode( '|', $scripts ) . '&only=scripts&mode=articles&cacheversion=' . $out->msg( 'resourceloaderarticles-cacheversion' )->text() . '&*' );
+		}
+		if ( $addStyle ) {
+			$out->addStyle( $wikiUrl . '?articles=' . implode( '|', $styles ) . '&only=styles&mode=articles&cacheversion=' . $out->msg( 'resourceloaderarticles-cacheversion' )->text() . '&*' );
+		}
 	}
 
 	/**
