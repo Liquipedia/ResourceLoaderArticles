@@ -47,7 +47,6 @@ class ResourceLoaderArticlesModule extends ResourceLoaderWikiModule {
 				} // TODO: Remove
 			} // TODO: Remove
 		}
-		echo '/* ' . print_r( $pages, true ) . ' */';
 		return $pages;
 	}
 
