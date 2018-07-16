@@ -70,7 +70,7 @@ class ResourceLoaderArticlesModuleHooks {
 		$config = $out->getConfig();
 		$scriptPath = substr( $config->get( 'ScriptPath' ), 1 );
 		$wikiUrl = $config->get( 'ResourceLoaderArticlesWiki' );
-		$scripts = [];
+		$scripts = [ 'Polyfill.js', 'Core.js' ];
 		$addScript = false;
 		$styles = [ 'Variables.css' ];
 		$addStyle = false;
@@ -84,6 +84,7 @@ class ResourceLoaderArticlesModuleHooks {
 				$addStyle = true;
 			}
 		}
+		$scripts[] = 'CoreEnd.js';
 		if ( !$out->msg( 'liquiflow-css-urls' )->exists() || strpos( $out->msg( 'liquiflow-css-urls' )->plain(), 'CACHEBUST' ) === false ) { // TODO: Remove
 			if ( $addScript ) {
 				$out->addScriptFile( $wikiUrl . '?articles=' . implode( '|', $scripts ) . '&only=scripts&mode=articles&cacheversion=' . $out->msg( 'resourceloaderarticles-cacheversion' )->text() . '&*' );
