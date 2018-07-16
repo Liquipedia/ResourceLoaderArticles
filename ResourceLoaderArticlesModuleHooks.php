@@ -72,15 +72,15 @@ class ResourceLoaderArticlesModuleHooks {
 		$wikiUrl = $config->get( 'ResourceLoaderArticlesWiki' );
 		$scripts = [];
 		$addScript = false;
-		$styles = [ 'MediaWiki:Common.css/Variables.css' ];
+		$styles = [ 'Variables.css' ];
 		$addStyle = false;
-		$res = $dbr->select( 'resourceloaderarticles', '*', [ '`rla_wiki` IN(\'' . $scriptPath . '\', \'all\')' ] );
+		$res = $dbr->select( 'resourceloaderarticles', '*', [ '`rla_wiki` IN(\'' . $scriptPath . '\', \'all\')' ], __METHOD__, [ 'ORDER BY' => 'rla_type ASC, rla_page ASC, rla_wiki ASC' ] );
 		while ( $row = $res->fetchObject() ) {
 			if ( $row->rla_type === 'script' ) {
-				$scripts[] = 'MediaWiki:Common.js/' . $row->rla_page;
+				$scripts[] = $row->rla_page;
 				$addScript = true;
 			} elseif ( $row->rla_type === 'style' ) {
-				$styles[] = 'MediaWiki:Common.css/' . $row->rla_page;
+				$styles[] = $row->rla_page;
 				$addStyle = true;
 			}
 		}

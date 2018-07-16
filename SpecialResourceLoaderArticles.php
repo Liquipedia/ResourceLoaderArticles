@@ -67,6 +67,7 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 				'label-message' => 'resourceloaderarticles-wiki',
 				'type' => 'text',
 				'required' => true,
+				'default' => 'all',
 			],
 			'Type' => [
 				'class' => 'HTMLSelectField',

@@ -30,11 +30,22 @@ class ResourceLoaderArticlesModule extends ResourceLoaderWikiModule {
 		}
 		$pages = [];
 		foreach ( $articles as $article ) {
-			if ( substr( $article, -3 ) == '.js' ) {
-				$pages[ $article ] = [ 'type' => 'script' ];
-			} elseif ( substr( $article, -4 ) == '.css' ) {
-				$pages[ $article ] = [ 'type' => 'style' ];
-			}
+			if ( !wfMessage( 'liquiflow-css-urls' )->exists() || strpos( wfMessage( 'liquiflow-css-urls' )->plain(), 'CACHEBUST' ) === false ) { // TODO: Remove
+				if ( substr( $article, 0, 10 ) === 'MediaWiki:' ) { // TODO: Remove
+					continue; // TODO: Remove
+				} // TODO: Remove
+				if ( substr( $article, -3 ) === '.js' ) {
+					$pages[ 'MediaWiki:Common.js/' . $article ] = [ 'type' => 'script' ];
+				} elseif ( substr( $article, -4 ) === '.css' ) {
+					$pages[ 'MediaWiki:Common.css/' . $article ] = [ 'type' => 'style' ];
+				}
+			} else { // TODO: Remove
+				if ( substr( $article, -3 ) === '.js' ) { // TODO: Remove
+					$pages[ $article ] = [ 'type' => 'script' ]; // TODO: Remove
+				} elseif ( substr( $article, -4 ) === '.css' ) { // TODO: Remove
+					$pages[ $article ] = [ 'type' => 'style' ]; // TODO: Remove
+				} // TODO: Remove
+			} // TODO: Remove
 		}
 		return $pages;
 	}
