@@ -72,7 +72,7 @@ class ResourceLoaderArticlesModuleHooks {
 		$wikiUrl = $config->get( 'ResourceLoaderArticlesWiki' );
 		$scripts = [];
 		$addScript = false;
-		$styles = [];
+		$styles = [ 'MediaWiki:Common.css/Variables.css' ];
 		$addStyle = false;
 		$res = $dbr->select( 'resourceloaderarticles', '*', [ '`rla_wiki` IN(\'' . $scriptPath . '\', \'all\')' ] );
 		while ( $row = $res->fetchObject() ) {
