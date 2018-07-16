@@ -5,5 +5,22 @@
 		]
 	},
 	"resourceloaderarticles": "ResourceLoaderArticles",
-	"resourceloaderarticles-desc": "Serves multiple MediaWiki articles combined together (and minified) as JS or CSS resources."
+	"resourceloaderarticles-desc": "Serves multiple MediaWiki articles combined together (and minified) as JS or CSS resources.",
+
+	"resourceloaderarticles-cacheversion": "1",
+	"resourceloaderarticles-show-list": "Show all pages",
+	"resourceloaderarticles-add-page": "Add new page",
+	"resourceloaderarticles-delete-page": "Delete page",
+	"resourceloaderarticles-edit": "Edit",
+	"resourceloaderarticles-delete": "Delete",
+	"resourceloaderarticles-page": "Page",
+	"resourceloaderarticles-wiki": "Wiki",
+	"resourceloaderarticles-type": "Type",
+
+	"resourceloaderarticles-error-page-empty": "The page parameter cannot be empty!",
+	"resourceloaderarticles-error-page-invalid": "The page name is invalid!",
+	"resourceloaderarticles-error-wiki-empty": "The wiki parameter cannot be empty!",
+	"resourceloaderarticles-success-add": "Page successfully added",
+	"resourceloaderarticles-success-edit": "Page successfully edited",
+	"resourceloaderarticles-success-delete": "Page successfully deleted"
 }

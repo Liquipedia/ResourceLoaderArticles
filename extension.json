@@ -1,15 +1,18 @@
 {
 	"name": "ResourceLoaderArticles",
-	"version": "1.1.1",
+	"version": "2.0.0",
 	"author": [
 		"[https://fo-nttax.de Alex Winkler]"
 	],
-	"url": "https://github.com/Liquipedia/MediaWiki-ResourceLoader-for-Articles",
+	"url": "https://github.com/Liquipedia/ResourceLoaderArticles",
 	"descriptionmsg": "resourceloaderarticles-desc",
 	"license-name": "GPL-2.0+",
 	"type": "other",
 	"requires": {
-		"MediaWiki": ">= 1.26.0"
+		"MediaWiki": ">= 1.31.0"
+	},
+	"ExtensionMessagesFiles": {
+		"ResourceLoaderArticlesAlias": "ResourceLoaderArticlesAlias.php"
 	},
 	"MessagesDirs": {
 		"ResourceLoaderArticles": [
@@ -17,13 +20,34 @@
 		]
 	},
 	"AutoloadClasses": {
-		"ResourceLoaderPagesModule": "ResourceLoaderPagesModule.php",
-		"ResourceLoaderPagesModuleHooks": "ResourceLoaderPagesModuleHooks.php"
+		"Liquipedia\\ResourceLoaderArticles\\ResourceLoaderArticlesModule": "ResourceLoaderArticlesModule.php",
+		"Liquipedia\\ResourceLoaderArticles\\ResourceLoaderArticlesModuleHooks": "ResourceLoaderArticlesModuleHooks.php",
+		"Liquipedia\\ResourceLoaderArticles\\SpecialResourceLoaderArticles": "SpecialResourceLoaderArticles.php"
+	},
+	"SpecialPages": {
+		"ResourceLoaderArticles": "Liquipedia\\ResourceLoaderArticles\\SpecialResourceLoaderArticles"
 	},
 	"Hooks": {
+		"BeforePageDisplay": [
+			"Liquipedia\\ResourceLoaderArticles\\ResourceLoaderArticlesModuleHooks::onBeforePageDisplay"
+		],
 		"ResourceLoaderRegisterModules": [
-			"ResourceLoaderPagesModuleHooks::onResourceLoaderRegisterModules"
+			"Liquipedia\\ResourceLoaderArticles\\ResourceLoaderArticlesModuleHooks::onResourceLoaderRegisterModules"
+		],
+		"LoadExtensionSchemaUpdates": [
+			"Liquipedia\\ResourceLoaderArticles\\ResourceLoaderArticlesModuleHooks::onLoadExtensionSchemaUpdates"
 		]
+	},
+	"AvailableRights": [
+		"adminresourceloaderarticles"
+	],
+	"GroupPermissions": {
+		"sysop": {
+			"adminresourceloaderarticles": true
+		}
+	},
+	"config": {
+		"ResourceLoaderArticlesWiki": "/commons/load.php"
 	},
 	"manifest_version": 1
 }
