@@ -6,6 +6,7 @@
 	},
 	"resourceloaderarticles": "ResourceLoaderArticles",
 	"resourceloaderarticles-desc": "Serves multiple MediaWiki articles combined together (and minified) as JS or CSS resources.",
+	"action-adminresourceloaderarticles": "administrate ResourceLoader modules",
 
 	"resourceloaderarticles-cacheversion": "1",
 	"resourceloaderarticles-show-list": "Show all pages",
