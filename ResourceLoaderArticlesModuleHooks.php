@@ -86,7 +86,7 @@ class ResourceLoaderArticlesModuleHooks {
 		}
 		$scripts[] = 'CoreEnd.js';
 		if ( $addScript ) {
-			$out->addScriptFile( $wikiUrl . '?articles=' . implode( '|', $scripts ) . '&only=scripts&mode=articles&cacheversion=' . $out->msg( 'resourceloaderarticles-cacheversion' )->text() . '&*' );
+			$out->addInlineScript( \ResourceLoader::makeLoaderConditionalScript( 'mw.loader.load(\'' . $wikiUrl . '?articles=' . implode( '|', $scripts ) . '&only=scripts&mode=articles&cacheversion=' . $out->msg( 'resourceloaderarticles-cacheversion' )->text() . '&*' . '\');' ) );
 		}
 		if ( $addStyle ) {
 			$out->addStyle( $wikiUrl . '?articles=' . implode( '|', $styles ) . '&only=styles&mode=articles&cacheversion=' . $out->msg( 'resourceloaderarticles-cacheversion' )->text() . '&*' );
