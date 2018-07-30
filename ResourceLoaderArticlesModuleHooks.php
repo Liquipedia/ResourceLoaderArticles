@@ -70,6 +70,7 @@ class ResourceLoaderArticlesModuleHooks {
 		$dbr = wfGetDB( DB_REPLICA );
 		$config = $out->getConfig();
 		$scriptPath = substr( $config->get( 'ScriptPath' ), 1 );
+		$debugMode = ResourceLoader::inDebugMode();
 		$wikiUrl = $config->get( 'ResourceLoaderArticlesWiki' );
 		$scripts = [ 'Polyfill.js', 'Core.js' ];
 		$addScript = false;
@@ -87,10 +88,10 @@ class ResourceLoaderArticlesModuleHooks {
 		}
 		$scripts[] = 'CoreEnd.js';
 		if ( $addScript ) {
-			$out->addInlineScript( ResourceLoader::makeLoaderConditionalScript( 'mw.loader.load(\'' . $wikiUrl . '?articles=' . implode( '|', $scripts ) . '&only=scripts&mode=articles&cacheversion=' . $out->msg( 'resourceloaderarticles-cacheversion' )->text() . '&*' . '\');' ) );
+			$out->addInlineScript( ResourceLoader::makeLoaderConditionalScript( 'mw.loader.load(\'' . $wikiUrl . '?articles=' . implode( '|', $scripts ) . '&only=scripts&mode=articles&debug=' . ( $debugMode ? 'true' : 'false' ) . '&cacheversion=' . $out->msg( 'resourceloaderarticles-cacheversion' )->text() . '&*' . '\');' ) );
 		}
 		if ( $addStyle ) {
-			$out->addStyle( $wikiUrl . '?articles=' . implode( '|', $styles ) . '&only=styles&mode=articles&cacheversion=' . $out->msg( 'resourceloaderarticles-cacheversion' )->text() . '&*' );
+			$out->addStyle( $wikiUrl . '?articles=' . implode( '|', $styles ) . '&only=styles&mode=articles&debug=' . ( $debugMode ? 'true' : 'false' ) . '&cacheversion=' . $out->msg( 'resourceloaderarticles-cacheversion' )->text() . '&*' );
 		}
 	}
 
