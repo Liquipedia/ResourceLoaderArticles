@@ -73,8 +73,8 @@ class ResourceLoaderArticlesModuleHooks {
 		$debugMode = ResourceLoader::inDebugMode();
 		$wikiUrl = $config->get( 'ResourceLoaderArticlesWiki' );
 		$scripts = [ 'Polyfill.js', 'Core.js' ];
-		$addScript = false;
 		$styles = [ 'Variables.css' ];
+		$addScript = false;
 		$addStyle = false;
 		$res = $dbr->select( 'resourceloaderarticles', '*', [ '`rla_wiki` IN(\'' . $scriptPath . '\', \'all\')' ], __METHOD__, [ 'ORDER BY' => 'rla_type ASC, rla_page ASC, rla_wiki ASC' ] );
 		while ( $row = $res->fetchObject() ) {
