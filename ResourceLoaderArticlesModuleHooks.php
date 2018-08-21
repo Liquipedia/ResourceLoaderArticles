@@ -73,7 +73,7 @@ class ResourceLoaderArticlesModuleHooks {
 		$debugMode = ResourceLoader::inDebugMode();
 		$wikiUrl = $config->get( 'ResourceLoaderArticlesWiki' );
 		$scripts = [ 'Polyfill.js', 'Core.js' ];
-		if ( $out->getUser()->getName() === 'FO-nTTaX' ) {
+		if ( $out->getUser()->getBoolOption( 'teamliquidintegration-enable-beta-features' ) ) {
 			array_unshift( $scripts, 'UseStrict.js' );
 		}
 		$styles = [ 'Variables.css' ];
