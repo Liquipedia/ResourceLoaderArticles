@@ -91,10 +91,10 @@ class ResourceLoaderArticlesModuleHooks {
 		}
 		$scripts[] = 'CoreEnd.js';
 		if ( $addScript ) {
-			$out->addInlineScript( ResourceLoader::makeLoaderConditionalScript( 'mw.loader.load(\'' . $wikiUrl . '?articles=' . implode( '|', $scripts ) . '&only=scripts&mode=articles&debug=' . ( $debugMode ? 'true' : 'false' ) . '&cacheversion=' . $out->msg( 'resourceloaderarticles-cacheversion' )->text() . '&*' . '\');' ) );
+			$out->addInlineScript( ResourceLoader::makeLoaderConditionalScript( 'mw.loader.load(\'' . $wikiUrl . '?articles=' . urlencode( implode( '|', $scripts ) ) . '&only=scripts&mode=articles&debug=' . ( $debugMode ? 'true' : 'false' ) . '&cacheversion=' . urlencode( $out->msg( 'resourceloaderarticles-cacheversion' )->text() ) . '&*\');' ) );
 		}
 		if ( $addStyle ) {
-			$out->addStyle( $wikiUrl . '?articles=' . implode( '|', $styles ) . '&only=styles&mode=articles&debug=' . ( $debugMode ? 'true' : 'false' ) . '&cacheversion=' . $out->msg( 'resourceloaderarticles-cacheversion' )->text() . '&*' );
+			$out->addStyle( $wikiUrl . '?articles=' . urlencode( implode( '|', $styles ) ) . '&only=styles&mode=articles&debug=' . ( $debugMode ? 'true' : 'false' ) . '&cacheversion=' . urlencode( $out->msg( 'resourceloaderarticles-cacheversion' )->text() ) . '&*' );
 		}
 	}
 
