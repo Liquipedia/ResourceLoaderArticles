@@ -72,10 +72,7 @@ class ResourceLoaderArticlesModuleHooks {
 		$scriptPath = substr( $config->get( 'ScriptPath' ), 1 );
 		$debugMode = ResourceLoader::inDebugMode();
 		$wikiUrl = $config->get( 'ResourceLoaderArticlesWiki' );
-		$scripts = [ 'Polyfill.js', 'Core.js' ];
-		if ( $out->getUser()->getBoolOption( 'teamliquidintegration-enable-beta-features' ) ) {
-			array_unshift( $scripts, 'UseStrict.js' );
-		}
+		$scripts = [ 'UseStrict.js', 'Polyfill.js', 'Core.js' ];
 		$styles = [ 'Variables.css' ];
 		$addScript = false;
 		$addStyle = false;
