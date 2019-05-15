@@ -87,16 +87,19 @@ class ResourceLoaderArticlesModuleHooks {
 			}
 		}
 		$scripts[] = 'CoreEnd.js';
+
+		$preload = [];
 		if ( $addScript ) {
 			$script = $wikiUrl . '?articles=' . urlencode( implode( '|', $scripts ) ) . '&only=scripts&mode=articles&debug=' . ( $debugMode ? 'true' : 'false' ) . '&cacheversion=' . urlencode( $out->msg( 'resourceloaderarticles-cacheversion' )->text() ) . '&*';
-			$out->getRequest()->response()->header( 'Link: <' . $script . '>; as=script; rel=preload' );
+			$preload[] = '<' . $script . '>; as=script; rel=preload';
 			$out->addInlineScript( ResourceLoader::makeLoaderConditionalScript( 'mw.loader.load(\'' . $script . '\');' ) );
 		}
 		if ( $addStyle ) {
 			$style = $wikiUrl . '?articles=' . urlencode( implode( '|', $styles ) ) . '&only=styles&mode=articles&debug=' . ( $debugMode ? 'true' : 'false' ) . '&cacheversion=' . urlencode( $out->msg( 'resourceloaderarticles-cacheversion' )->text() ) . '&*';
-			$out->getRequest()->response()->header( 'Link: <' . $style . '>; as=style; rel=preload' );
+			$preload[] = '<' . $style . '>; as=style; rel=preload';
 			$out->addStyle( $style );
 		}
+		$out->getRequest()->response()->header( 'Link: ' . implode( ', ', $preload ) );
 	}
 
 	/**
