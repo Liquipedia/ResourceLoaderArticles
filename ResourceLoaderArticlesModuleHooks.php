@@ -109,7 +109,7 @@ class ResourceLoaderArticlesModuleHooks {
 			$db->sourceFile( __DIR__ . '/sql/resourceloaderarticles.sql' );
 			$updater->output( "done.\n" );
 		} else {
-			$updater->output( "...resourceloaderarticles table already exists (LPDB).\n" );
+			$updater->output( "...resourceloaderarticles table already exists.\n" );
 		}
 	}
 
