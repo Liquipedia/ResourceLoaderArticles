@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS /*_*/resourceloaderarticles (
   `rla_wiki` VARBINARY(255) NOT NULL,
   `rla_page` VARBINARY(255) NOT NULL,
   `rla_type` VARBINARY(255) NOT NULL
-) /*$wgDBTableOptions*/
+) /*$wgDBTableOptions*/;
 
 ALTER TABLE /*_*/resourceloaderarticles
   ADD PRIMARY KEY `rla_id` (`rla_id`),
