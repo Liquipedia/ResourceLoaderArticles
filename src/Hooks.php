@@ -67,7 +67,7 @@ class Hooks {
 	}
 
 	public static function onBeforePageDisplay( OutputPage &$out, Skin &$skin ) {
-		if ( $skin->skinname !== 'apioutput' ) {
+		if ( $skin->getSkinName() !== 'apioutput' ) {
 			$dbr = wfGetDB( DB_REPLICA );
 			$config = $out->getConfig();
 			$scriptPath = substr( $config->get( 'ScriptPath' ), 1 );
