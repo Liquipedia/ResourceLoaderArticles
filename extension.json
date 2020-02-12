@@ -1,6 +1,6 @@
 {
 	"name": "ResourceLoaderArticles",
-	"version": "2.0.0",
+	"version": "2.1.0",
 	"author": [
 		"[https://fo-nttax.de Alex Winkler]"
 	],
@@ -12,30 +12,28 @@
 		"MediaWiki": ">= 1.31.0"
 	},
 	"ExtensionMessagesFiles": {
-		"ResourceLoaderArticlesAlias": "ResourceLoaderArticlesAlias.php"
+		"ResourceLoaderArticlesAlias": "i18n/ResourceLoaderArticlesAlias.php"
 	},
 	"MessagesDirs": {
 		"ResourceLoaderArticles": [
 			"i18n"
 		]
 	},
-	"AutoloadClasses": {
-		"Liquipedia\\ResourceLoaderArticles\\ResourceLoaderArticlesModule": "ResourceLoaderArticlesModule.php",
-		"Liquipedia\\ResourceLoaderArticles\\ResourceLoaderArticlesModuleHooks": "ResourceLoaderArticlesModuleHooks.php",
-		"Liquipedia\\ResourceLoaderArticles\\SpecialResourceLoaderArticles": "SpecialResourceLoaderArticles.php"
+	"AutoloadNamespaces": {
+		"Liquipedia\\ResourceLoaderArticles\\": "src/"
 	},
 	"SpecialPages": {
 		"ResourceLoaderArticles": "Liquipedia\\ResourceLoaderArticles\\SpecialResourceLoaderArticles"
 	},
 	"Hooks": {
 		"BeforePageDisplay": [
-			"Liquipedia\\ResourceLoaderArticles\\ResourceLoaderArticlesModuleHooks::onBeforePageDisplay"
+			"Liquipedia\\ResourceLoaderArticles\\Hooks::onBeforePageDisplay"
 		],
 		"ResourceLoaderRegisterModules": [
-			"Liquipedia\\ResourceLoaderArticles\\ResourceLoaderArticlesModuleHooks::onResourceLoaderRegisterModules"
+			"Liquipedia\\ResourceLoaderArticles\\Hooks::onResourceLoaderRegisterModules"
 		],
 		"LoadExtensionSchemaUpdates": [
-			"Liquipedia\\ResourceLoaderArticles\\ResourceLoaderArticlesModuleHooks::onLoadExtensionSchemaUpdates"
+			"Liquipedia\\ResourceLoaderArticles\\Hooks::onLoadExtensionSchemaUpdates"
 		]
 	},
 	"AvailableRights": [

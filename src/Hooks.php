@@ -10,7 +10,7 @@ use Revision;
 use Skin;
 use Title;
 
-class ResourceLoaderArticlesModuleHooks {
+class Hooks {
 
 	public static function onResourceLoaderRegisterModules( $resourceLoader ) {
 		global $wgRequest;
@@ -67,34 +67,36 @@ class ResourceLoaderArticlesModuleHooks {
 	}
 
 	public static function onBeforePageDisplay( OutputPage &$out, Skin &$skin ) {
-		$dbr = wfGetDB( DB_REPLICA );
-		$config = $out->getConfig();
-		$scriptPath = substr( $config->get( 'ScriptPath' ), 1 );
-		$debugMode = ResourceLoader::inDebugMode();
-		$wikiUrl = $config->get( 'ResourceLoaderArticlesWiki' );
-		$scripts = [ 'UseStrict.js', 'Polyfill.js', 'Core.js' ];
-		$styles = [ 'Variables.css' ];
-		$addScript = false;
-		$addStyle = false;
-		$res = $dbr->select( 'resourceloaderarticles', '*', [ '`rla_wiki` IN(\'' . $scriptPath . '\', \'all\')' ], __METHOD__, [ 'ORDER BY' => 'rla_type ASC, rla_page ASC, rla_wiki ASC' ] );
-		while ( $row = $res->fetchObject() ) {
-			if ( $row->rla_type === 'script' ) {
-				$scripts[] = $row->rla_page;
-				$addScript = true;
-			} elseif ( $row->rla_type === 'style' ) {
-				$styles[] = $row->rla_page;
-				$addStyle = true;
+		if ( $skin->skinname !== apioutput ) {
+			$dbr = wfGetDB( DB_REPLICA );
+			$config = $out->getConfig();
+			$scriptPath = substr( $config->get( 'ScriptPath' ), 1 );
+			$debugMode = ResourceLoader::inDebugMode();
+			$wikiUrl = $config->get( 'ResourceLoaderArticlesWiki' );
+			$scripts = [ 'UseStrict.js', 'Polyfill.js', 'Core.js' ];
+			$styles = [ 'Variables.css' ];
+			$addScript = false;
+			$addStyle = false;
+			$res = $dbr->select( 'resourceloaderarticles', '*', [ '`rla_wiki` IN(\'' . $scriptPath . '\', \'all\')' ], __METHOD__, [ 'ORDER BY' => 'rla_type ASC, rla_page ASC, rla_wiki ASC' ] );
+			while ( $row = $res->fetchObject() ) {
+				if ( $row->rla_type === 'script' ) {
+					$scripts[] = $row->rla_page;
+					$addScript = true;
+				} elseif ( $row->rla_type === 'style' ) {
+					$styles[] = $row->rla_page;
+					$addStyle = true;
+				}
 			}
-		}
-		$scripts[] = 'CoreEnd.js';
+			$scripts[] = 'CoreEnd.js';
 
-		if ( $addScript ) {
-			$script = $wikiUrl . '?debug=' . ( $debugMode ? 'true' : 'false' ) . '&articles=' . urlencode( implode( '|', $scripts ) ) . '&only=scripts&mode=articles&cacheversion=' . urlencode( $out->msg( 'resourceloaderarticles-cacheversion' )->text() ) . '&*';
-			$out->addInlineScript( ResourceLoader::makeLoaderConditionalScript( 'mw.loader.load(\'' . $script . '\');' ) );
-		}
-		if ( $addStyle ) {
-			$style = $wikiUrl . '?debug=' . ( $debugMode ? 'true' : 'false' ) . '&articles=' . urlencode( implode( '|', $styles ) ) . '&only=styles&mode=articles&cacheversion=' . urlencode( $out->msg( 'resourceloaderarticles-cacheversion' )->text() ) . '&*';
-			$out->addStyle( $style );
+			if ( $addScript ) {
+				$script = $wikiUrl . '?debug=' . ( $debugMode ? 'true' : 'false' ) . '&articles=' . urlencode( implode( '|', $scripts ) ) . '&only=scripts&mode=articles&cacheversion=' . urlencode( $out->msg( 'resourceloaderarticles-cacheversion' )->text() ) . '&*';
+				$out->addInlineScript( ResourceLoader::makeLoaderConditionalScript( 'mw.loader.load(\'' . $script . '\');' ) );
+			}
+			if ( $addStyle ) {
+				$style = $wikiUrl . '?debug=' . ( $debugMode ? 'true' : 'false' ) . '&articles=' . urlencode( implode( '|', $styles ) ) . '&only=styles&mode=articles&cacheversion=' . urlencode( $out->msg( 'resourceloaderarticles-cacheversion' )->text() ) . '&*';
+				$out->addStyle( $style );
+			}
 		}
 	}
 
