@@ -12,6 +12,10 @@ use Title;
 
 class Hooks {
 
+	/**
+	 * @param ResourceLoader $resourceLoader
+	 * @return bool
+	 */
 	public static function onResourceLoaderRegisterModules( $resourceLoader ) {
 		global $wgRequest;
 		/* @var $request WebRequest */
@@ -66,6 +70,10 @@ class Hooks {
 		return true;
 	}
 
+	/**
+	 * @param OutputPage &$out
+	 * @param Skin &$skin
+	 */
 	public static function onBeforePageDisplay( OutputPage &$out, Skin &$skin ) {
 		if ( $skin->getSkinName() !== 'apioutput' ) {
 			$dbr = wfGetDB( DB_REPLICA );
@@ -77,8 +85,14 @@ class Hooks {
 			$styles = [ 'Variables.css' ];
 			$addScript = false;
 			$addStyle = false;
-			$res = $dbr->select( 'resourceloaderarticles', '*', [ '`rla_wiki` IN(\'' . $scriptPath . '\', \'all\')' ], __METHOD__, [ 'ORDER BY' => 'rla_type ASC, rla_page ASC, rla_wiki ASC' ] );
-			while ( $row = $res->fetchObject() ) {
+			$res = $dbr->select(
+				'resourceloaderarticles',
+				'*',
+				[ '`rla_wiki` IN(\'' . $scriptPath . '\', \'all\')' ],
+				__METHOD__,
+				[ 'ORDER BY' => 'rla_type ASC, rla_page ASC, rla_wiki ASC' ]
+			);
+			foreach ( $res as $row ) {
 				if ( $row->rla_type === 'script' ) {
 					$scripts[] = $row->rla_page;
 					$addScript = true;
@@ -90,11 +104,23 @@ class Hooks {
 			$scripts[] = 'CoreEnd.js';
 
 			if ( $addScript ) {
-				$script = $wikiUrl . '?debug=' . ( $debugMode ? 'true' : 'false' ) . '&articles=' . urlencode( implode( '|', $scripts ) ) . '&only=scripts&mode=articles&cacheversion=' . urlencode( $out->msg( 'resourceloaderarticles-cacheversion' )->text() ) . '&*';
-				$out->addInlineScript( ResourceLoader::makeLoaderConditionalScript( 'mw.loader.load(\'' . $script . '\');' ) );
+				$script = $wikiUrl
+					. '?debug=' . ( $debugMode ? 'true' : 'false' )
+					. '&articles=' . urlencode( implode( '|', $scripts ) )
+					. '&only=scripts&mode=articles&cacheversion='
+					. urlencode( $out->msg( 'resourceloaderarticles-cacheversion' )->text() )
+					. '&*';
+				$out->addInlineScript(
+					ResourceLoader::makeLoaderConditionalScript( 'mw.loader.load(\'' . $script . '\');' )
+				);
 			}
 			if ( $addStyle ) {
-				$style = $wikiUrl . '?debug=' . ( $debugMode ? 'true' : 'false' ) . '&articles=' . urlencode( implode( '|', $styles ) ) . '&only=styles&mode=articles&cacheversion=' . urlencode( $out->msg( 'resourceloaderarticles-cacheversion' )->text() ) . '&*';
+				$style = $wikiUrl
+					. '?debug=' . ( $debugMode ? 'true' : 'false' )
+					. '&articles=' . urlencode( implode( '|', $styles ) )
+					. '&only=styles&mode=articles&cacheversion='
+					. urlencode( $out->msg( 'resourceloaderarticles-cacheversion' )->text() )
+					. '&*';
 				$out->addStyle( $style );
 			}
 		}
@@ -102,6 +128,7 @@ class Hooks {
 
 	/**
 	 * Handle database updates
+	 * @param DatabaseUpdater $updater
 	 */
 	public static function onLoadExtensionSchemaUpdates( DatabaseUpdater $updater ) {
 		$db = $updater->getDB();

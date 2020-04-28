@@ -9,8 +9,8 @@ namespace Liquipedia\ResourceLoaderArticles;
 use CSSJanus;
 use Less_Parser;
 use MemoizedCallable;
-use ResourceLoaderContext;
 use ResourceLoader;
+use ResourceLoaderContext;
 use ResourceLoaderWikiModule;
 
 class ResourceLoaderArticlesModule extends ResourceLoaderWikiModule {
@@ -79,7 +79,10 @@ class ResourceLoaderArticlesModule extends ResourceLoaderWikiModule {
 			if ( $this->getFlip( $context ) ) {
 				$style = CSSJanus::transform( $style, true, false );
 			}
-			$style = MemoizedCallable::call( 'CSSMin::remap', [ $style, false, $this->getConfig()->get( 'ScriptPath' ), true ] );
+			$style = MemoizedCallable::call(
+					'CSSMin::remap',
+					[ $style, false, $this->getConfig()->get( 'ScriptPath' ), true ]
+			);
 			$styles[ $media ][ 0 ] = $style;
 		}
 		return $styles;
