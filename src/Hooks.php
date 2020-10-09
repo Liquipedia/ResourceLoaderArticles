@@ -135,7 +135,7 @@ class Hooks {
 
 		if ( !$db->tableExists( 'resourceloaderarticles', __METHOD__ ) ) {
 			$updater->output( "Creating resourceloaderarticles table resourceloaderarticles ...\n" );
-			$db->sourceFile( __DIR__ . '/sql/resourceloaderarticles.sql' );
+			$db->sourceFile( __DIR__ . '/../sql/resourceloaderarticles.sql' );
 			$updater->output( "done.\n" );
 		} else {
 			$updater->output( "...resourceloaderarticles table already exists.\n" );
