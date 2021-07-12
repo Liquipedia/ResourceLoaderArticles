@@ -50,7 +50,7 @@ class ResourceLoaderArticlesModule extends ResourceLoaderWikiModule {
 				continue;
 			}
 			$media = isset( $options[ 'media' ] ) ? $options[ 'media' ] : 'all';
-			$style = $this->getContent( $titleText );
+			$style = $this->getContent( $titleText, $context );
 			if ( strval( $style ) === '' ) {
 				continue;
 			}
