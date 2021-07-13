@@ -111,7 +111,10 @@ class Hooks {
 					. urlencode( $out->msg( 'resourceloaderarticles-cacheversion' )->text() )
 					. '&*';
 				$out->addInlineScript(
-					ResourceLoader::makeLoaderConditionalScript( 'mw.loader.load(\'' . $script . '\');' )
+					ResourceLoader::makeInlineCodeWithModule(
+						'mediawiki.base',
+						'mw.loader.load(\'' . $script . '\');'
+					)
 				);
 			}
 			if ( $addStyle ) {
