@@ -37,12 +37,12 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 		$output = $this->getOutput();
 		$params = explode( '/', $par );
 
-		$output->addWikiText(
+		$output->addWikiTextAsContent(
 			'[[Special:ResourceLoaderArticles|'
 			. $this->msg( 'resourceloaderarticles-show-list' )->text()
 			. ']]'
 		);
-		$output->addWikiText(
+		$output->addWikiTextAsContent(
 			'[[Special:ResourceLoaderArticles/add|'
 			. $this->msg( 'resourceloaderarticles-add-page' )->text()
 			. ']]'
@@ -135,7 +135,7 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 		$output = $this->getOutput();
 		$store = true;
 		if ( empty( $formData[ 'Page' ] ) ) {
-			$output->addWikiText(
+			$output->addWikiTextAsContent(
 				'<div class="error">'
 				. $this->msg( 'resourceloaderarticles-error-page-empty' )->text()
 				. '</div>'
@@ -145,7 +145,7 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 			( substr( $formData[ 'Page' ], -4 ) !== '.css' && $formData[ 'Type' ] === 'style' )
 			|| ( substr( $formData[ 'Page' ], -3 ) !== '.js' && $formData[ 'Type' ] === 'script' )
 		) {
-			$output->addWikiText(
+			$output->addWikiTextAsContent(
 				'<div class="error">'
 				. $this->msg( 'resourceloaderarticles-error-page-invalid' )->text()
 				. '</div>'
@@ -153,7 +153,7 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 			$store = false;
 		}
 		if ( empty( $formData[ 'Wiki' ] ) ) {
-			$output->addWikiText(
+			$output->addWikiTextAsContent(
 				'<div class="error">'
 				. $this->msg( 'resourceloaderarticles-error-wiki-empty' )->text()
 				. '</div>'
@@ -170,7 +170,7 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 					'rla_type' => $formData[ 'Type' ]
 				]
 			);
-			$output->addWikiText(
+			$output->addWikiTextAsContent(
 				'<div class="success">'
 				. $this->msg( 'resourceloaderarticles-success-add' )->text()
 				. '</div>'
@@ -229,7 +229,7 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 		$output = $this->getOutput();
 		$store = true;
 		if ( empty( $formData[ 'Page' ] ) ) {
-			$output->addWikiText(
+			$output->addWikiTextAsContent(
 				'<div class="error">'
 				. $this->msg( 'resourceloaderarticles-error-page-empty' )->text()
 				. '</div>'
@@ -239,7 +239,7 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 			( substr( $formData[ 'Page' ], -4 ) !== '.css' && $formData[ 'Type' ] === 'style' )
 			|| ( substr( $formData[ 'Page' ], -3 ) !== '.js' && $formData[ 'Type' ] === 'script' )
 		) {
-			$output->addWikiText(
+			$output->addWikiTextAsContent(
 				'<div class="error">'
 				. $this->msg( 'resourceloaderarticles-error-page-invalid' )->text()
 				. '</div>'
@@ -247,7 +247,7 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 			$store = false;
 		}
 		if ( empty( $formData[ 'Wiki' ] ) ) {
-			$output->addWikiText(
+			$output->addWikiTextAsContent(
 				'<div class="error">'
 				. $this->msg( 'resourceloaderarticles-error-wiki-empty' )->text()
 				. '</div>'
@@ -267,7 +267,7 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 					'rla_id' => $formData[ 'Id' ]
 				]
 			);
-			$output->addWikiText(
+			$output->addWikiTextAsContent(
 				'<div class="success">'
 				. $this->msg( 'resourceloaderarticles-success-edit' )->text()
 				. '</div>'
@@ -326,7 +326,7 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 		$output = $this->getOutput();
 		$dbw = wfGetDB( DB_MASTER );
 		$dbw->delete( 'resourceloaderarticles', [ 'rla_id' => $formData[ 'Id' ] ] );
-		$output->addWikiText(
+		$output->addWikiTextAsContent(
 			'<div class="success">'
 			. $this->msg( 'resourceloaderarticles-success-delete' )->text()
 			. '</div>'
