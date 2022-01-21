@@ -4,7 +4,7 @@
  * MediaWiki Extension to add additional Resource Loader module
  */
 
-namespace Liquipedia\ResourceLoaderArticles;
+namespace Liquipedia\Extension\ResourceLoaderArticles\ResourceLoader;
 
 use CSSJanus;
 use Less_Parser;

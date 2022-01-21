@@ -1,6 +1,6 @@
 <?php
 
-namespace Liquipedia\ResourceLoaderArticles;
+namespace Liquipedia\Extension\ResourceLoaderArticles\SpecialPage;
 
 use HTMLForm;
 use Title;
@@ -161,7 +161,7 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 			$store = false;
 		}
 		if ( $store ) {
-			$dbw = wfGetDB( DB_MASTER );
+			$dbw = wfGetDB( DB_PRIMARY );
 			$dbw->insert(
 				'resourceloaderarticles',
 				[
@@ -182,7 +182,7 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 	 * @param int $id
 	 */
 	private function editPage( $id ) {
-		$dbr = wfGetDB( DB_MASTER );
+		$dbr = wfGetDB( DB_PRIMARY );
 		$res = $dbr->select( 'resourceloaderarticles', '*', [ 'rla_id' => $id ] );
 		$row = $res->fetchObject();
 		$formDescriptor = [
@@ -255,7 +255,7 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 			$store = false;
 		}
 		if ( $store ) {
-			$dbw = wfGetDB( DB_MASTER );
+			$dbw = wfGetDB( DB_PRIMARY );
 			$dbw->update(
 				'resourceloaderarticles',
 				[
@@ -279,7 +279,7 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 	 * @param int $id
 	 */
 	private function deletePage( $id ) {
-		$dbr = wfGetDB( DB_MASTER );
+		$dbr = wfGetDB( DB_PRIMARY );
 		$res = $dbr->select( 'resourceloaderarticles', '*', [ 'rla_id' => $id ] );
 		$row = $res->fetchObject();
 		$formDescriptor = [
@@ -324,7 +324,7 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 	 */
 	public function deletePageCB( $formData ) {
 		$output = $this->getOutput();
-		$dbw = wfGetDB( DB_MASTER );
+		$dbw = wfGetDB( DB_PRIMARY );
 		$dbw->delete( 'resourceloaderarticles', [ 'rla_id' => $formData[ 'Id' ] ] );
 		$output->addWikiTextAsContent(
 			'<div class="success">'

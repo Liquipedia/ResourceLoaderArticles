@@ -1,6 +1,6 @@
 {
 	"name": "ResourceLoaderArticles",
-	"version": "2.1.0",
+	"version": "2.2.0",
 	"author": [
 		"[https://fo-nttax.de Alex Winkler]"
 	],
@@ -9,7 +9,7 @@
 	"license-name": "GPL-2.0+",
 	"type": "other",
 	"requires": {
-		"MediaWiki": ">= 1.35.0"
+		"MediaWiki": ">= 1.35.3"
 	},
 	"ExtensionMessagesFiles": {
 		"ResourceLoaderArticlesAlias": "i18n/ResourceLoaderArticlesAlias.php"
@@ -20,21 +20,23 @@
 		]
 	},
 	"AutoloadNamespaces": {
-		"Liquipedia\\ResourceLoaderArticles\\": "src/"
+		"Liquipedia\\Extension\\ResourceLoaderArticles\\": "src/"
 	},
 	"SpecialPages": {
-		"ResourceLoaderArticles": "Liquipedia\\ResourceLoaderArticles\\SpecialResourceLoaderArticles"
+		"ResourceLoaderArticles": "\\Liquipedia\\Extension\\ResourceLoaderArticles\\SpecialPage\\SpecialResourceLoaderArticles"
+	},
+	"HookHandlers": {
+		"Main": {
+			"class": "\\Liquipedia\\Extension\\ResourceLoaderArticles\\Hooks\\MainHookHandler"
+		},
+		"Schema": {
+			"class": "\\Liquipedia\\Extension\\ResourceLoaderArticles\\Hooks\\SchemaHookHandler"
+		}
 	},
 	"Hooks": {
-		"BeforePageDisplay": [
-			"Liquipedia\\ResourceLoaderArticles\\Hooks::onBeforePageDisplay"
-		],
-		"ResourceLoaderRegisterModules": [
-			"Liquipedia\\ResourceLoaderArticles\\Hooks::onResourceLoaderRegisterModules"
-		],
-		"LoadExtensionSchemaUpdates": [
-			"Liquipedia\\ResourceLoaderArticles\\Hooks::onLoadExtensionSchemaUpdates"
-		]
+		"BeforePageDisplay": "Main",
+		"LoadExtensionSchemaUpdates": "Schema",
+		"ResourceLoaderRegisterModules": "Main"
 	},
 	"AvailableRights": [
 		"adminresourceloaderarticles"
@@ -45,7 +47,12 @@
 		}
 	},
 	"config": {
-		"ResourceLoaderArticlesWiki": "/commons/load.php"
+		"ResourceLoaderArticlesWiki": {
+			"value": "/commons/load.php",
+			"path": false,
+			"description": "load.php of central wiki",
+			"public": true
+		}
 	},
-	"manifest_version": 1
+	"manifest_version": 2
 }
