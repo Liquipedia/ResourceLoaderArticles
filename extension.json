@@ -1,6 +1,6 @@
 {
 	"name": "ResourceLoaderArticles",
-	"version": "2.2.0",
+	"version": "2.2.1",
 	"author": [
 		"[https://fo-nttax.de Alex Winkler]"
 	],
@@ -36,6 +36,7 @@
 	"Hooks": {
 		"BeforePageDisplay": "Main",
 		"LoadExtensionSchemaUpdates": "Schema",
+		"MakeGlobalVariablesScript": "Main",
 		"ResourceLoaderRegisterModules": "Main"
 	},
 	"AvailableRights": [

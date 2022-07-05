@@ -5,6 +5,7 @@ namespace Liquipedia\Extension\ResourceLoaderArticles\Hooks;
 use ContentHandler;
 use Liquipedia\Extension\ResourceLoaderArticles\ResourceLoader\ResourceLoaderArticlesModule;
 use MediaWiki\Hook\BeforePageDisplayHook;
+use MediaWiki\Hook\MakeGlobalVariablesScriptHook;
 use MediaWiki\ResourceLoader\Hook\ResourceLoaderRegisterModulesHook;
 use OutputPage;
 use ResourceLoader;
@@ -14,6 +15,7 @@ use Title;
 
 class MainHookHandler implements
 	BeforePageDisplayHook,
+	MakeGlobalVariablesScriptHook,
 	ResourceLoaderRegisterModulesHook
 {
 
@@ -74,6 +76,16 @@ class MainHookHandler implements
 				$out->addStyle( $style );
 			}
 		}
+	}
+
+	/**
+	 * @param array &$vars
+	 * @param OutputPage $out
+	 */
+	public function onMakeGlobalVariablesScript( &$vars, $out ): void {
+		$vars += [
+			'resourceloaderarticles-cacheversion' => wfMessage( 'resourceloaderarticles-cacheversion' )->text(),
+		];
 	}
 
 	/**
