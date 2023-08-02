@@ -9,7 +9,7 @@
 	"license-name": "GPL-2.0+",
 	"type": "other",
 	"requires": {
-		"MediaWiki": ">= 1.35.3"
+		"MediaWiki": ">= 1.39.3"
 	},
 	"ExtensionMessagesFiles": {
 		"ResourceLoaderArticlesAlias": "i18n/ResourceLoaderArticlesAlias.php"
