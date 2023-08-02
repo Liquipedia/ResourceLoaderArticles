@@ -6,10 +6,12 @@ use ContentHandler;
 use Liquipedia\Extension\ResourceLoaderArticles\ResourceLoader\ResourceLoaderArticlesModule;
 use MediaWiki\Hook\BeforePageDisplayHook;
 use MediaWiki\Hook\MakeGlobalVariablesScriptHook;
+use MediaWiki\MediaWikiServices;
 use MediaWiki\ResourceLoader\Hook\ResourceLoaderRegisterModulesHook;
+use MediaWiki\Revision\RevisionLookup;
+use MediaWiki\Revision\SlotRecord;
 use OutputPage;
 use ResourceLoader;
-use Revision;
 use Skin;
 use Title;
 
@@ -120,13 +122,15 @@ class MainHookHandler implements
 			} else {
 				continue;
 			}
+			$revision = MediaWikiServices::getInstance()
+				->getRevisionLookup()
+				->getRevisionByTitle( $title, 0, RevisionLookup::READ_NORMAL );
 
-			$revision = Revision::newFromTitle( $title, false, Revision::READ_NORMAL );
 			if ( !$revision ) {
 				continue;
 			}
 
-			$content = $revision->getContent( Revision::RAW );
+			$content = $revision->getContent( SlotRecord::MAIN );
 
 			$text .= $content->getNativeData() . "\n";
 		}
