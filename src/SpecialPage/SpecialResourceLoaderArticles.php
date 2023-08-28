@@ -35,7 +35,7 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 		}
 		$this->setHeaders();
 		$output = $this->getOutput();
-		$params = explode( '/', $par );
+		$params = explode( '/', $par ?? '' );
 
 		$output->addWikiTextAsContent(
 			'[[Special:ResourceLoaderArticles|'
