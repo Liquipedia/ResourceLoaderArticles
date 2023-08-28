@@ -24,7 +24,7 @@ class ResourceLoaderArticlesModule extends ResourceLoaderWikiModule {
 	protected function getPages( ResourceLoaderContext $context ) {
 		$request = $context->getRequest();
 		$articles = $request->getVal( 'articles' );
-		$articles = explode( '|', $articles );
+		$articles = explode( '|', $articles ?? '' );
 		if ( empty( $articles ) ) {
 			return;
 		}
