@@ -71,7 +71,7 @@ class ResourceLoaderArticlesModule extends ResourceLoaderWikiModule {
 			$cache::TTL_WEEK,
 			static function () use ( $contents, $fileName ) {
 				try {
-					Peast::ES2016( $contents )->parse();
+					Peast::ES2020( $contents )->parse();
 				} catch ( PeastSyntaxException $e ) {
 					return $e->getMessage() . " on line " . $e->getPosition()->getLine();
 				}
@@ -87,7 +87,7 @@ class ResourceLoaderArticlesModule extends ResourceLoaderWikiModule {
 			// the response itself.
 			return 'mw.log.error(' .
 				json_encode(
-					'Parse error: ' . $error
+					'Parse error: ' . $error . ' for file ' . $fileName
 				) .
 				');';
 		}
