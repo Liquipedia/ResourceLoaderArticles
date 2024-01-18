@@ -48,7 +48,7 @@ class ResourceLoaderArticlesModule extends ResourceLoaderWikiModule {
 	/**
 	 * Override of the same function in order to support ES6 files
 	 * Duplicate of https://gerrit.wikimedia.org/g/mediawiki/core/+/6fd9245f4ce47a77dc76f70994952cd6da2d1db7/includes/ResourceLoader/Module.php#1083
-	 * Can be removed when moving to a MW version >= 1.4
+	 * Can be removed when moving to a MW version >= 1.41
 	 * @param string $fileName
 	 * @param string $contents
 	 * @return string
