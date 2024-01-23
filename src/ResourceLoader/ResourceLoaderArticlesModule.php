@@ -38,7 +38,7 @@ class ResourceLoaderArticlesModule extends ResourceLoaderWikiModule {
 		foreach ( $articles as $article ) {
 			if ( substr( $article, -3 ) === '.js' ) {
 				$pages[ 'MediaWiki:Common.js/' . $article ] = [ 'type' => 'script' ];
-			} elseif ( substr( $article, -4 ) === '.css' ) {
+			} elseif ( substr( $article, -4 ) === '.css' || substr( $article, -5 ) === '.less' ) {
 				$pages[ 'MediaWiki:Common.css/' . $article ] = [ 'type' => 'style' ];
 			}
 		}
