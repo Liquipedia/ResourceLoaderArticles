@@ -143,7 +143,7 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 			$store = false;
 		} elseif (
 			(
-				( substr( $formData[ 'Page' ], -4 ) !== '.css' || substr( $formData[ 'Page' ], -5 ) !== '.less' )
+				!( substr( $formData[ 'Page' ], -4 ) === '.css' || substr( $formData[ 'Page' ], -5 ) === '.less' )
 				&& $formData[ 'Type' ] === 'style'
 			)
 			|| ( substr( $formData[ 'Page' ], -3 ) !== '.js' && $formData[ 'Type' ] === 'script' )
@@ -240,7 +240,7 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 			$store = false;
 		} elseif (
 			(
-				( substr( $formData[ 'Page' ], -4 ) !== '.css' || substr( $formData[ 'Page' ], -5 ) !== '.less' )
+				!( substr( $formData[ 'Page' ], -4 ) === '.css' || substr( $formData[ 'Page' ], -5 ) === '.less' )
 				&& $formData[ 'Type' ] === 'style'
 			)
 			|| ( substr( $formData[ 'Page' ], -3 ) !== '.js' && $formData[ 'Type' ] === 'script' )
