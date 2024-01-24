@@ -142,7 +142,10 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 			);
 			$store = false;
 		} elseif (
-			( substr( $formData[ 'Page' ], -4 ) !== '.css' && $formData[ 'Type' ] === 'style' )
+			(
+				( substr( $formData[ 'Page' ], -4 ) !== '.css' || substr( $formData[ 'Page' ], -5 ) !== '.less' )
+				&& $formData[ 'Type' ] === 'style'
+			)
 			|| ( substr( $formData[ 'Page' ], -3 ) !== '.js' && $formData[ 'Type' ] === 'script' )
 		) {
 			$output->addWikiTextAsContent(
@@ -236,7 +239,10 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 			);
 			$store = false;
 		} elseif (
-			( substr( $formData[ 'Page' ], -4 ) !== '.css' && $formData[ 'Type' ] === 'style' )
+			(
+				( substr( $formData[ 'Page' ], -4 ) !== '.css' || substr( $formData[ 'Page' ], -5 ) !== '.less' )
+				&& $formData[ 'Type' ] === 'style'
+			)
 			|| ( substr( $formData[ 'Page' ], -3 ) !== '.js' && $formData[ 'Type' ] === 'script' )
 		) {
 			$output->addWikiTextAsContent(
