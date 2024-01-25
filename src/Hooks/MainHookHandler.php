@@ -8,6 +8,7 @@ use MediaWiki\Hook\BeforePageDisplayHook;
 use MediaWiki\Hook\MakeGlobalVariablesScriptHook;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\ResourceLoader\Hook\ResourceLoaderRegisterModulesHook;
+use MediaWiki\Revision\Hook\ContentHandlerDefaultModelForHook;
 use MediaWiki\Revision\RevisionLookup;
 use MediaWiki\Revision\SlotRecord;
 use OutputPage;
@@ -17,6 +18,7 @@ use Title;
 
 class MainHookHandler implements
 	BeforePageDisplayHook,
+	ContentHandlerDefaultModelForHook,
 	MakeGlobalVariablesScriptHook,
 	ResourceLoaderRegisterModulesHook
 {
@@ -76,6 +78,21 @@ class MainHookHandler implements
 					. urlencode( $out->msg( 'resourceloaderarticles-cacheversion' )->text() )
 					. '&*';
 				$out->addStyle( $style );
+			}
+		}
+	}
+
+	/**
+	 * Set the CONTENT_MODEL_CSS content handler for less files
+	 *
+	 * @param Title $title
+	 * @param string &$model
+	 * @return bool
+	 */
+	public function onContentHandlerDefaultModelFor( $title, &$model ) {
+		if ( $title->getNamespace() === NS_MEDIAWIKI ) {
+			if ( str_ends_with( $title->getText(), '.less' ) ) {
+				$model = CONTENT_MODEL_JSON;
 			}
 		}
 	}
