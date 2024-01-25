@@ -35,6 +35,7 @@
 	},
 	"Hooks": {
 		"BeforePageDisplay": "Main",
+		"ContentHandlerDefaultModelForHook": "Main",
 		"LoadExtensionSchemaUpdates": "Schema",
 		"MakeGlobalVariablesScript": "Main",
 		"ResourceLoaderRegisterModules": "Main"
