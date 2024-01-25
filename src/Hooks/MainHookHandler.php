@@ -92,7 +92,8 @@ class MainHookHandler implements
 	public function onContentHandlerDefaultModelFor( $title, &$model ) {
 		if ( $title->getNamespace() === NS_MEDIAWIKI ) {
 			if ( str_ends_with( $title->getText(), '.less' ) ) {
-				$model = CONTENT_MODEL_JSON;
+				$model = CONTENT_MODEL_CSS;
+				return true;
 			}
 		}
 	}
