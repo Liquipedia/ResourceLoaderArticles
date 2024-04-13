@@ -43,7 +43,7 @@ class MainHookHandler implements
 				'*',
 				[ '`rla_wiki` IN(\'' . $scriptPath . '\', \'all\')' ],
 				__METHOD__,
-				[ 'ORDER BY' => 'rla_type ASC, rla_page ASC, rla_wiki ASC' ]
+				[ 'ORDER BY' => 'rla_priority DESC, rla_type ASC, rla_page ASC, rla_wiki ASC' ]
 			);
 			foreach ( $res as $row ) {
 				if ( $row->rla_type === 'script' ) {
