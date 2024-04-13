@@ -28,5 +28,7 @@
 	"resourceloaderarticles-error-wiki-empty": "The wiki parameter cannot be empty!",
 	"resourceloaderarticles-success-add": "Page successfully added",
 	"resourceloaderarticles-success-edit": "Page successfully edited",
-	"resourceloaderarticles-success-delete": "Page successfully deleted"
+	"resourceloaderarticles-success-delete": "Page successfully deleted",
+
+	"resourceloaderarticles-help-priority": "Priority for loading order of the resource (higher first), falls back to alphabetic order within a single priority class."
 }
