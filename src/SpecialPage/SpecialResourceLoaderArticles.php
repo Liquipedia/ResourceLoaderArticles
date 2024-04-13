@@ -67,7 +67,7 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 			'*',
 			[],
 			__METHOD__,
-			[ 'ORDER BY' => 'rla_priority DESC, rla_type ASC, rla_page ASC, rla_wiki ASC' ]
+			[ 'ORDER BY' => 'rla_type ASC, rla_priority DESC, rla_page ASC, rla_wiki ASC' ]
 		);
 		$output->addHTML( '<div class="table-responsive"><table class="wikitable">' );
 		$output->addHTML(
@@ -78,9 +78,14 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 			. '</th><th>' . $this->msg( 'resourceloaderarticles-type' )->text()
 			. '</th><th></th></tr>'
 		);
+		$prevResType = '';
 		foreach ( $res as $row ) {
 			$deleteTitle = Title::newFromText( 'ResourceLoaderArticles/delete/' . $row->rla_id, NS_SPECIAL );
 			$editTitle = Title::newFromText( 'ResourceLoaderArticles/edit/' . $row->rla_id, NS_SPECIAL );
+			if ( $prevResType !== $row->rla_type ) {
+				$output->addHTML( "<tr><th colspan='6'>{ $row->rla_type }s</th></tr>" );
+				$prevResType = $row->rla_type;
+			}
 			$output->addHTML(
 				'<tr><td>' . $row->rla_id
 				. '</td><td>' . $row->rla_priority
