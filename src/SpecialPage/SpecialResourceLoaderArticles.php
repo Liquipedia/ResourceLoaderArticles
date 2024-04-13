@@ -339,18 +339,21 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 			'Id' => [
 				'type' => 'hidden',
 				'required' => true,
+				'disabled' => true,
 				'default' => $row->rla_id,
 			],
 			'Page' => [
 				'label-message' => 'resourceloaderarticles-page',
 				'type' => 'text',
 				'required' => true,
+				'disabled' => true,
 				'default' => $row->rla_page,
 			],
 			'Wiki' => [
 				'label-message' => 'resourceloaderarticles-wiki',
 				'type' => 'text',
 				'required' => true,
+				'disabled' => true,
 				'default' => $row->rla_wiki,
 			],
 			'Type' => [
@@ -360,12 +363,14 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 					'JavaScript' => 'script',
 					'CSS' => 'style',
 				],
+				'disabled' => true,
 				'default' => $row->rla_type,
 			],
 			'Priority' => [
 				'label-message' => 'resourceloaderarticles-priority',
 				'type' => 'number',
 				'required' => true,
+				'disabled' => true,
 				'default' => $row->rla_priority,
 			],
 		];
