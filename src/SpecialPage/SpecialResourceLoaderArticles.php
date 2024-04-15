@@ -128,7 +128,7 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 			],
 			'Priority' => [
 				'label-message' => 'resourceloaderarticles-priority',
-				'help-message' => 'resourceloaderarticles-help-priority' ),
+				'help-message' => 'resourceloaderarticles-help-priority',
 				'type' => 'number',
 				'required' => true,
 				'default' => '0',
