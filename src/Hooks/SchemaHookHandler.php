@@ -18,7 +18,11 @@ class SchemaHookHandler implements
 
 		if ( !$db->tableExists( 'resourceloaderarticles', __METHOD__ ) ) {
 			$updater->output( "Creating resourceloaderarticles table resourceloaderarticles ...\n" );
-			$db->sourceFile( __DIR__ . '/../sql/resourceloaderarticles.sql' );
+			$db->sourceFile( __DIR__ . '/../../sql/resourceloaderarticles.sql' );
+			$updater->output( "done.\n" );
+		} elseif ( !$db->fieldExists( 'resourceloaderarticles', 'rla_priority', __METHOD__ ) ) {
+			$updater->output( "Adding `rla_priority` to resourceloaderarticles table resourceloaderarticles ...\n" );
+			$db->sourceFile( __DIR__ . '/../../sql/resourceloaderarticlesPriorityMigration.sql' );
 			$updater->output( "done.\n" );
 		} elseif ( !$db->fieldExists( 'resourceloaderarticles', 'rla_priority', __METHOD__ ) ) {
 			$updater->output( "Adding `rla_priority` to resourceloaderarticles table resourceloaderarticles ...\n" );

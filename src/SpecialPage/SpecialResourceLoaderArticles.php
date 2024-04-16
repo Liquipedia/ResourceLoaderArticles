@@ -83,7 +83,7 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 			$deleteTitle = Title::newFromText( 'ResourceLoaderArticles/delete/' . $row->rla_id, NS_SPECIAL );
 			$editTitle = Title::newFromText( 'ResourceLoaderArticles/edit/' . $row->rla_id, NS_SPECIAL );
 			if ( $prevResType !== $row->rla_type ) {
-				$output->addHTML( "<tr><th colspan='6'>". $row->rla_type ."s</th></tr>" );
+				$output->addHTML( "<tr><th colspan='6'>{ $row->rla_type }s</th></tr>" );
 				$prevResType = $row->rla_type;
 			}
 			$output->addHTML(
@@ -129,7 +129,7 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 			'Priority' => [
 				'label-message' => 'resourceloaderarticles-priority',
 				'help-message' => 'resourceloaderarticles-help-priority',
-				'type' => 'number',
+				'type' => 'int',
 				'required' => true,
 				'default' => '0',
 			],
@@ -249,7 +249,7 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 			'Priority' => [
 				'label-message' => 'resourceloaderarticles-priority',
 				'help-message' => 'resourceloaderarticles-help-priority',
-				'type' => 'number',
+				'type' => 'int',
 				'required' => true,
 				'default' => $row->rla_priority,
 			],
@@ -376,7 +376,7 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 			'Priority' => [
 				'label-message' => 'resourceloaderarticles-priority',
 				'help-message' => 'resourceloaderarticles-help-priority',
-				'type' => 'number',
+				'type' => 'int',
 				'required' => true,
 				'disabled' => true,
 				'default' => $row->rla_priority,
