@@ -67,20 +67,28 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 			'*',
 			[],
 			__METHOD__,
-			[ 'ORDER BY' => 'rla_type ASC, rla_page ASC, rla_wiki ASC' ]
+			[ 'ORDER BY' => 'rla_type ASC, rla_priority DESC, rla_page ASC, rla_wiki ASC' ]
 		);
 		$output->addHTML( '<div class="table-responsive"><table class="wikitable">' );
 		$output->addHTML(
-			'<tr><th>#</th><th>' . $this->msg( 'resourceloaderarticles-page' )->text()
+			'<tr><th>' . $this->msg( 'resourceloaderarticles-id' )->text()
+			. '</th><th>' . $this->msg( 'resourceloaderarticles-priority' )->text()
+			. '</th><th>' . $this->msg( 'resourceloaderarticles-page' )->text()
 			. '</th><th>' . $this->msg( 'resourceloaderarticles-wiki' )->text()
 			. '</th><th>' . $this->msg( 'resourceloaderarticles-type' )->text()
 			. '</th><th></th></tr>'
 		);
+		$prevResType = '';
 		foreach ( $res as $row ) {
 			$deleteTitle = Title::newFromText( 'ResourceLoaderArticles/delete/' . $row->rla_id, NS_SPECIAL );
 			$editTitle = Title::newFromText( 'ResourceLoaderArticles/edit/' . $row->rla_id, NS_SPECIAL );
+			if ( $prevResType !== $row->rla_type ) {
+				$output->addHTML( "<tr><th colspan='6'>{ $row->rla_type }s</th></tr>" );
+				$prevResType = $row->rla_type;
+			}
 			$output->addHTML(
 				'<tr><td>' . $row->rla_id
+				. '</td><td>' . $row->rla_priority
 				. '</td><td>' . $row->rla_page
 				. '</td><td>' . $row->rla_wiki
 				. '</td><td>' . $row->rla_type
@@ -117,6 +125,13 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 					'JavaScript' => 'script',
 					'CSS' => 'style',
 				],
+			],
+			'Priority' => [
+				'label-message' => 'resourceloaderarticles-priority',
+				'help-message' => 'resourceloaderarticles-help-priority',
+				'type' => 'number',
+				'required' => true,
+				'default' => '0',
 			],
 		];
 
@@ -163,6 +178,21 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 			);
 			$store = false;
 		}
+		if ( empty( $formData[ 'Priority' ] ) ) {
+			$output->addWikiTextAsContent(
+				'<div class="error">'
+				. $this->msg( 'resourceloaderarticles-error-priority-empty' )->text()
+				. '</div>'
+			);
+			$store = false;
+		} elseif ( !is_int( $formData[ 'Priority' ] ) ) {
+			$output->addWikiTextAsContent(
+				'<div class="error">'
+				. $this->msg( 'resourceloaderarticles-error-priority-invalid' )->text()
+				. '</div>'
+			);
+			$store = false;
+		}
 		if ( $store ) {
 			$dbw = wfGetDB( DB_PRIMARY );
 			$dbw->insert(
@@ -170,7 +200,8 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 				[
 					'rla_page' => $formData[ 'Page' ],
 					'rla_wiki' => $formData[ 'Wiki' ],
-					'rla_type' => $formData[ 'Type' ]
+					'rla_type' => $formData[ 'Type' ],
+					'rla_priority' => $formData[ 'Priority' ]
 				]
 			);
 			$output->addWikiTextAsContent(
@@ -214,6 +245,13 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 					'CSS' => 'style',
 				],
 				'default' => $row->rla_type,
+			],
+			'Priority' => [
+				'label-message' => 'resourceloaderarticles-priority',
+				'help-message' => 'resourceloaderarticles-help-priority',
+				'type' => 'number',
+				'required' => true,
+				'default' => $row->rla_priority,
 			],
 		];
 
@@ -260,6 +298,21 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 			);
 			$store = false;
 		}
+		if ( empty( $formData[ 'Priority' ] ) ) {
+			$output->addWikiTextAsContent(
+				'<div class="error">'
+				. $this->msg( 'resourceloaderarticles-error-priority-empty' )->text()
+				. '</div>'
+			);
+			$store = false;
+		} elseif ( !is_int( $formData[ 'Priority' ] ) ) {
+			$output->addWikiTextAsContent(
+				'<div class="error">'
+				. $this->msg( 'resourceloaderarticles-error-priority-invalid' )->text()
+				. '</div>'
+			);
+			$store = false;
+		}
 		if ( $store ) {
 			$dbw = wfGetDB( DB_PRIMARY );
 			$dbw->update(
@@ -267,7 +320,8 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 				[
 					'rla_page' => $formData[ 'Page' ],
 					'rla_wiki' => $formData[ 'Wiki' ],
-					'rla_type' => $formData[ 'Type' ]
+					'rla_type' => $formData[ 'Type' ],
+					'rla_priority' => $formData[ 'Priority' ]
 				],
 				[
 					'rla_id' => $formData[ 'Id' ]
@@ -292,18 +346,21 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 			'Id' => [
 				'type' => 'hidden',
 				'required' => true,
+				'disabled' => true,
 				'default' => $row->rla_id,
 			],
 			'Page' => [
 				'label-message' => 'resourceloaderarticles-page',
 				'type' => 'text',
 				'required' => true,
+				'disabled' => true,
 				'default' => $row->rla_page,
 			],
 			'Wiki' => [
 				'label-message' => 'resourceloaderarticles-wiki',
 				'type' => 'text',
 				'required' => true,
+				'disabled' => true,
 				'default' => $row->rla_wiki,
 			],
 			'Type' => [
@@ -313,7 +370,16 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 					'JavaScript' => 'script',
 					'CSS' => 'style',
 				],
+				'disabled' => true,
 				'default' => $row->rla_type,
+			],
+			'Priority' => [
+				'label-message' => 'resourceloaderarticles-priority',
+				'help-message' => 'resourceloaderarticles-help-priority',
+				'type' => 'number',
+				'required' => true,
+				'disabled' => true,
+				'default' => $row->rla_priority,
 			],
 		];
 

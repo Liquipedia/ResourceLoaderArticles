@@ -32,5 +32,10 @@
 			"minus-x fix .",
 			"phpcbf"
 		]
+	},
+	"config": {
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true
+		}
 	}
 }

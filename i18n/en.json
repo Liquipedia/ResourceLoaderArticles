@@ -18,11 +18,17 @@
 	"resourceloaderarticles-page": "Page",
 	"resourceloaderarticles-wiki": "Wiki",
 	"resourceloaderarticles-type": "Type",
+	"resourceloaderarticles-priority": "Priority",
+	"resourceloaderarticles-id": "ID",
 
 	"resourceloaderarticles-error-page-empty": "The page parameter cannot be empty!",
 	"resourceloaderarticles-error-page-invalid": "The page name is invalid!",
+	"resourceloaderarticles-error-priority-empty": "The priority parameter cannot be empty!",
+	"resourceloaderarticles-error-priority-invalid": "The priority is invalid - must be an integer!",
 	"resourceloaderarticles-error-wiki-empty": "The wiki parameter cannot be empty!",
 	"resourceloaderarticles-success-add": "Page successfully added",
 	"resourceloaderarticles-success-edit": "Page successfully edited",
-	"resourceloaderarticles-success-delete": "Page successfully deleted"
+	"resourceloaderarticles-success-delete": "Page successfully deleted",
+
+	"resourceloaderarticles-help-priority": "Priority for loading order of the resource (higher first), falls back to alphabetic order within a single priority class."
 }
