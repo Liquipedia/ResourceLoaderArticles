@@ -83,7 +83,11 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 			$deleteTitle = Title::newFromText( 'ResourceLoaderArticles/delete/' . $row->rla_id, NS_SPECIAL );
 			$editTitle = Title::newFromText( 'ResourceLoaderArticles/edit/' . $row->rla_id, NS_SPECIAL );
 			if ( $prevResType !== $row->rla_type ) {
-				$output->addHTML( "<tr><th colspan='6'>{ $row->rla_type }s</th></tr>" );
+				$output->addHTML(
+					'<tr><th colspan="6">'
+					. $this->msg( 'resourceloaderarticles-resourcetype-' . $row->rla_type )->text()
+					. '</th></tr>'
+				);
 				$prevResType = $row->rla_type;
 			}
 			$output->addHTML(
@@ -121,9 +125,9 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 			'Type' => [
 				'class' => 'HTMLSelectField',
 				'label' => 'Select an option',
-				'options' => [
-					'JavaScript' => 'script',
-					'CSS' => 'style',
+				'options-messages' => [
+					'resourceloaderarticles-resourcetype-script' => 'script',
+					'resourceloaderarticles-resourcetype-style' => 'style',
 				],
 			],
 			'Priority' => [
@@ -240,9 +244,9 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 			'Type' => [
 				'class' => 'HTMLSelectField',
 				'label' => 'Select an option',
-				'options' => [
-					'JavaScript' => 'script',
-					'CSS' => 'style',
+				'options-messages' => [
+					'resourceloaderarticles-resourcetype-script' => 'script',
+					'resourceloaderarticles-resourcetype-style' => 'style',
 				],
 				'default' => $row->rla_type,
 			],
@@ -366,9 +370,9 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 			'Type' => [
 				'class' => 'HTMLSelectField',
 				'label' => 'Select an option',
-				'options' => [
-					'JavaScript' => 'script',
-					'CSS' => 'style',
+				'options-messages' => [
+					'resourceloaderarticles-resourcetype-script' => 'script',
+					'resourceloaderarticles-resourcetype-style' => 'style',
 				],
 				'disabled' => true,
 				'default' => $row->rla_type,
