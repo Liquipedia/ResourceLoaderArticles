@@ -129,7 +129,7 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 			'Priority' => [
 				'label-message' => 'resourceloaderarticles-priority',
 				'help-message' => 'resourceloaderarticles-help-priority',
-				'type' => 'number',
+				'type' => 'int',
 				'required' => true,
 				'default' => '0',
 			],
@@ -249,7 +249,7 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 			'Priority' => [
 				'label-message' => 'resourceloaderarticles-priority',
 				'help-message' => 'resourceloaderarticles-help-priority',
-				'type' => 'number',
+				'type' => 'int',
 				'required' => true,
 				'default' => $row->rla_priority,
 			],
@@ -376,7 +376,7 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 			'Priority' => [
 				'label-message' => 'resourceloaderarticles-priority',
 				'help-message' => 'resourceloaderarticles-help-priority',
-				'type' => 'number',
+				'type' => 'int',
 				'required' => true,
 				'disabled' => true,
 				'default' => $row->rla_priority,
