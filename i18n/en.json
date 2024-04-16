@@ -21,6 +21,9 @@
 	"resourceloaderarticles-priority": "Priority",
 	"resourceloaderarticles-id": "ID",
 
+	"resourceloaderarticles-resourcetype-script": "JavaScript",
+	"resourceloaderarticles-resourcetype-style": "Style Sheet",
+
 	"resourceloaderarticles-error-page-empty": "The page parameter cannot be empty!",
 	"resourceloaderarticles-error-page-invalid": "The page name is invalid!",
 	"resourceloaderarticles-error-priority-empty": "The priority parameter cannot be empty!",
