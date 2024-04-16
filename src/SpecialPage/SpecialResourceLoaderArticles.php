@@ -83,7 +83,7 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 			$deleteTitle = Title::newFromText( 'ResourceLoaderArticles/delete/' . $row->rla_id, NS_SPECIAL );
 			$editTitle = Title::newFromText( 'ResourceLoaderArticles/edit/' . $row->rla_id, NS_SPECIAL );
 			if ( $prevResType !== $row->rla_type ) {
-				$output->addHTML( "<tr><th colspan='6'>{ $row->rla_type }s</th></tr>" );
+				$output->addHTML( "<tr><th colspan='6'>". $row->rla_type ."s</th></tr>" );
 				$prevResType = $row->rla_type;
 			}
 			$output->addHTML(
