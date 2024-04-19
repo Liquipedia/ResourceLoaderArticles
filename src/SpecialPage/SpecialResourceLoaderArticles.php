@@ -189,7 +189,7 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 				. '</div>'
 			);
 			$store = false;
-		} elseif ( !is_int( $formData[ 'Priority' ] ) ) {
+		} elseif ( !ctype_digit( $formData[ 'Priority' ] ) ) {
 			$output->addWikiTextAsContent(
 				'<div class="error">'
 				. $this->msg( 'resourceloaderarticles-error-priority-invalid' )->text()
@@ -205,7 +205,7 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 					'rla_page' => $formData[ 'Page' ],
 					'rla_wiki' => $formData[ 'Wiki' ],
 					'rla_type' => $formData[ 'Type' ],
-					'rla_priority' => $formData[ 'Priority' ]
+					'rla_priority' => intval( $formData[ 'Priority' ] )
 				]
 			);
 			$output->addWikiTextAsContent(
@@ -309,7 +309,7 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 				. '</div>'
 			);
 			$store = false;
-		} elseif ( !is_int( $formData[ 'Priority' ] ) ) {
+		} elseif ( !ctype_digit( $formData[ 'Priority' ] ) ) {
 			$output->addWikiTextAsContent(
 				'<div class="error">'
 				. $this->msg( 'resourceloaderarticles-error-priority-invalid' )->text()
@@ -325,7 +325,7 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 					'rla_page' => $formData[ 'Page' ],
 					'rla_wiki' => $formData[ 'Wiki' ],
 					'rla_type' => $formData[ 'Type' ],
-					'rla_priority' => $formData[ 'Priority' ]
+					'rla_priority' => intval( $formData[ 'Priority' ] )
 				],
 				[
 					'rla_id' => $formData[ 'Id' ]
