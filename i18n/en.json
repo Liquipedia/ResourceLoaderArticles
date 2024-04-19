@@ -10,9 +10,10 @@
 	"right-adminresourceloaderarticles":"Administrate ResourceLoader modules",
 
 	"resourceloaderarticles-cacheversion": "1",
-	"resourceloaderarticles-show-list": "Show all pages",
-	"resourceloaderarticles-add-page": "Add new page",
-	"resourceloaderarticles-delete-page": "Delete page",
+	"resourceloaderarticles-show-list": "Show all resources",
+	"resourceloaderarticles-add-page": "Add new resource",
+	"resourceloaderarticles-edit-page": "Save resouce changes",
+	"resourceloaderarticles-delete-page": "Delete resouce",
 	"resourceloaderarticles-edit": "Edit",
 	"resourceloaderarticles-delete": "Delete",
 	"resourceloaderarticles-page": "Page",
