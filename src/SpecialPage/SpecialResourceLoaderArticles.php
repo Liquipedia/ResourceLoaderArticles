@@ -260,7 +260,7 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 		];
 
 		$htmlForm = HTMLForm::factory( 'ooui', $formDescriptor, $this->getContext() );
-		$htmlForm->setSubmitText( $this->msg( 'resourceloaderarticles-add-page' )->text() );
+		$htmlForm->setSubmitText( $this->msg( 'resourceloaderarticles-edit-page' )->text() );
 		$htmlForm->setFormIdentifier( 'editPageCB' );
 		$htmlForm->setSubmitCallback( [ $this, 'editPageCB' ] );
 
