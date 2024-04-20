@@ -113,6 +113,7 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 		$formDescriptor = [
 			'Page' => [
 				'label-message' => 'resourceloaderarticles-page',
+				'help-message' => 'resourceloaderarticles-help-page',
 				'type' => 'text',
 				'required' => true,
 			],
@@ -200,6 +201,7 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 			],
 			'Page' => [
 				'label-message' => 'resourceloaderarticles-page',
+				'help-message' => 'resourceloaderarticles-help-page',
 				'type' => 'text',
 				'required' => true,
 				'default' => $row->rla_page,
@@ -292,6 +294,7 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 			],
 			'Page' => [
 				'label-message' => 'resourceloaderarticles-page',
+				'help-message' => 'resourceloaderarticles-help-page',
 				'type' => 'text',
 				'required' => true,
 				'disabled' => true,
