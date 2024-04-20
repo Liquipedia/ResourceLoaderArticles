@@ -152,7 +152,6 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 	 */
 	public function addPageCB( $formData ) {
 		$output = $this->getOutput();
-		$store = true;
 		if (
 			(
 				!( substr( $formData[ 'Page' ], -4 ) === '.css' || substr( $formData[ 'Page' ], -5 ) === '.less' )
@@ -165,9 +164,7 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 				. $this->msg( 'resourceloaderarticles-error-page-invalid' )->text()
 				. '</div>'
 			);
-			$store = false;
-		}
-		if ( $store ) {
+		} else {
 			$dbw = wfGetDB( DB_PRIMARY );
 			$dbw->insert(
 				'resourceloaderarticles',
@@ -242,7 +239,6 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 	 */
 	public function editPageCB( $formData ) {
 		$output = $this->getOutput();
-		$store = true;
 		if (
 			(
 				!( substr( $formData[ 'Page' ], -4 ) === '.css' || substr( $formData[ 'Page' ], -5 ) === '.less' )
@@ -255,9 +251,7 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 				. $this->msg( 'resourceloaderarticles-error-page-invalid' )->text()
 				. '</div>'
 			);
-			$store = false;
-		}
-		if ( $store ) {
+		} else {
 			$dbw = wfGetDB( DB_PRIMARY );
 			$dbw->update(
 				'resourceloaderarticles',
