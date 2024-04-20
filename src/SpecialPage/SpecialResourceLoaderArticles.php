@@ -137,6 +137,8 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 				'type' => 'int',
 				'required' => true,
 				'default' => '0',
+				'min' => -1000,
+				'max' => 1000,
 			],
 		];
 
@@ -227,6 +229,8 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 				'type' => 'int',
 				'required' => true,
 				'default' => $row->rla_priority,
+				'min' => -1000,
+				'max' => 1000,
 			],
 		];
 
