@@ -153,14 +153,7 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 	public function addPageCB( $formData ) {
 		$output = $this->getOutput();
 		$store = true;
-		if ( empty( $formData[ 'Page' ] ) ) {
-			$output->addWikiTextAsContent(
-				'<div class="error">'
-				. $this->msg( 'resourceloaderarticles-error-page-empty' )->text()
-				. '</div>'
-			);
-			$store = false;
-		} elseif (
+		if (
 			(
 				!( substr( $formData[ 'Page' ], -4 ) === '.css' || substr( $formData[ 'Page' ], -5 ) === '.less' )
 				&& $formData[ 'Type' ] === 'style'
@@ -170,29 +163,6 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 			$output->addWikiTextAsContent(
 				'<div class="error">'
 				. $this->msg( 'resourceloaderarticles-error-page-invalid' )->text()
-				. '</div>'
-			);
-			$store = false;
-		}
-		if ( empty( $formData[ 'Wiki' ] ) ) {
-			$output->addWikiTextAsContent(
-				'<div class="error">'
-				. $this->msg( 'resourceloaderarticles-error-wiki-empty' )->text()
-				. '</div>'
-			);
-			$store = false;
-		}
-		if ( empty( $formData[ 'Priority' ] ) ) {
-			$output->addWikiTextAsContent(
-				'<div class="error">'
-				. $this->msg( 'resourceloaderarticles-error-priority-empty' )->text()
-				. '</div>'
-			);
-			$store = false;
-		} elseif ( !ctype_digit( $formData[ 'Priority' ] ) ) {
-			$output->addWikiTextAsContent(
-				'<div class="error">'
-				. $this->msg( 'resourceloaderarticles-error-priority-invalid' )->text()
 				. '</div>'
 			);
 			$store = false;
@@ -273,14 +243,7 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 	public function editPageCB( $formData ) {
 		$output = $this->getOutput();
 		$store = true;
-		if ( empty( $formData[ 'Page' ] ) ) {
-			$output->addWikiTextAsContent(
-				'<div class="error">'
-				. $this->msg( 'resourceloaderarticles-error-page-empty' )->text()
-				. '</div>'
-			);
-			$store = false;
-		} elseif (
+		if (
 			(
 				!( substr( $formData[ 'Page' ], -4 ) === '.css' || substr( $formData[ 'Page' ], -5 ) === '.less' )
 				&& $formData[ 'Type' ] === 'style'
@@ -290,29 +253,6 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 			$output->addWikiTextAsContent(
 				'<div class="error">'
 				. $this->msg( 'resourceloaderarticles-error-page-invalid' )->text()
-				. '</div>'
-			);
-			$store = false;
-		}
-		if ( empty( $formData[ 'Wiki' ] ) ) {
-			$output->addWikiTextAsContent(
-				'<div class="error">'
-				. $this->msg( 'resourceloaderarticles-error-wiki-empty' )->text()
-				. '</div>'
-			);
-			$store = false;
-		}
-		if ( empty( $formData[ 'Priority' ] ) ) {
-			$output->addWikiTextAsContent(
-				'<div class="error">'
-				. $this->msg( 'resourceloaderarticles-error-priority-empty' )->text()
-				. '</div>'
-			);
-			$store = false;
-		} elseif ( !ctype_digit( $formData[ 'Priority' ] ) ) {
-			$output->addWikiTextAsContent(
-				'<div class="error">'
-				. $this->msg( 'resourceloaderarticles-error-priority-invalid' )->text()
 				. '</div>'
 			);
 			$store = false;
