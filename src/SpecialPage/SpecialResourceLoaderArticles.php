@@ -192,8 +192,10 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 		$row = $res->fetchObject();
 		$formDescriptor = [
 			'Id' => [
-				'type' => 'hidden',
+				'label-message' => 'resourceloaderarticles-id',
+				'type' => 'int',
 				'required' => true,
+				'disabled' => true,
 				'default' => $row->rla_id,
 			],
 			'Page' => [
@@ -282,7 +284,8 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 		$row = $res->fetchObject();
 		$formDescriptor = [
 			'Id' => [
-				'type' => 'hidden',
+				'label-message' => 'resourceloaderarticles-id',
+				'type' => 'int',
 				'required' => true,
 				'disabled' => true,
 				'default' => $row->rla_id,
