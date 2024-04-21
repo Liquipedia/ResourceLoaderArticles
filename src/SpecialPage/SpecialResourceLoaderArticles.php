@@ -157,7 +157,6 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 	 * @param array $formData
 	 */
 	public function addPageCB( $formData ) {
-		$output = $this->getOutput();
 		$dbw = wfGetDB( DB_PRIMARY );
 		$dbw->insert(
 			'resourceloaderarticles',
@@ -168,6 +167,7 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 				'rla_priority' => intval( $formData[ 'Priority' ] )
 			]
 		);
+		$output = $this->getOutput();
 		$output->addWikiTextAsContent(
 			'<div class="success">'
 			. $this->msg( 'resourceloaderarticles-success-add' )->text()
@@ -238,7 +238,6 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 	 * @param array $formData
 	 */
 	public function editPageCB( $formData ) {
-		$output = $this->getOutput();
 		$dbw = wfGetDB( DB_PRIMARY );
 		$dbw->update(
 			'resourceloaderarticles',
@@ -252,6 +251,7 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 				'rla_id' => $formData[ 'Id' ]
 			]
 		);
+		$output = $this->getOutput();
 		$output->addWikiTextAsContent(
 			'<div class="success">'
 			. $this->msg( 'resourceloaderarticles-success-edit' )->text()
