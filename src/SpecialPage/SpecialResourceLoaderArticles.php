@@ -158,19 +158,6 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 	 */
 	public function addPageCB( $formData ) {
 		$output = $this->getOutput();
-		if (
-			(
-				!( substr( $formData[ 'Page' ], -4 ) === '.css' || substr( $formData[ 'Page' ], -5 ) === '.less' )
-				&& $formData[ 'Type' ] === 'style'
-			)
-			|| ( substr( $formData[ 'Page' ], -3 ) !== '.js' && $formData[ 'Type' ] === 'script' )
-		) {
-			$output->addWikiTextAsContent(
-				'<div class="error">'
-				. $this->msg( 'resourceloaderarticles-error-page-invalid' )->text()
-				. '</div>'
-			);
-		} else {
 			$dbw = wfGetDB( DB_PRIMARY );
 			$dbw->insert(
 				'resourceloaderarticles',
@@ -186,7 +173,6 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 				. $this->msg( 'resourceloaderarticles-success-add' )->text()
 				. '</div>'
 			);
-		}
 	}
 
 	/**
@@ -253,19 +239,6 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 	 */
 	public function editPageCB( $formData ) {
 		$output = $this->getOutput();
-		if (
-			(
-				!( substr( $formData[ 'Page' ], -4 ) === '.css' || substr( $formData[ 'Page' ], -5 ) === '.less' )
-				&& $formData[ 'Type' ] === 'style'
-			)
-			|| ( substr( $formData[ 'Page' ], -3 ) !== '.js' && $formData[ 'Type' ] === 'script' )
-		) {
-			$output->addWikiTextAsContent(
-				'<div class="error">'
-				. $this->msg( 'resourceloaderarticles-error-page-invalid' )->text()
-				. '</div>'
-			);
-		} else {
 			$dbw = wfGetDB( DB_PRIMARY );
 			$dbw->update(
 				'resourceloaderarticles',
@@ -284,7 +257,6 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 				. $this->msg( 'resourceloaderarticles-success-edit' )->text()
 				. '</div>'
 			);
-		}
 	}
 
 	/**
