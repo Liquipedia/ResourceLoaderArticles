@@ -347,8 +347,8 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 	public function validatePageCB( $value, $alldata ) {
 		if (
 			( $alldata[ 'Type' ] === 'style'
-				&& !( (strlen( $value ) > 4 && substr( $value, -4 ) === '.css')
-					|| (strlen( $value ) > 5 && substr( $value, -5 ) === '.less')
+				&& !( ( strlen( $value ) > 4 && substr( $value, -4 ) === '.css' )
+					|| ( strlen( $value ) > 5 && substr( $value, -5 ) === '.less' )
 				)
 			) || ( $alldata[ 'Type' ] === 'script' && !( strlen( $value ) > 3 && substr( $value, -3 ) === '.js' ) )
 		) {
