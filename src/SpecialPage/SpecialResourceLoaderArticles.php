@@ -116,12 +116,14 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 				'help-message' => 'resourceloaderarticles-help-page',
 				'type' => 'text',
 				'required' => true,
+				'filter-callback' => [ $this, 'trimValueCB' ],
 			],
 			'Wiki' => [
 				'label-message' => 'resourceloaderarticles-wiki',
 				'type' => 'text',
 				'required' => true,
 				'default' => 'all',
+				'filter-callback' => [ $this, 'trimValueCB' ],
 			],
 			'Type' => [
 				'class' => 'HTMLSelectField',
@@ -207,12 +209,14 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 				'type' => 'text',
 				'required' => true,
 				'default' => $row->rla_page,
+				'filter-callback' => [ $this, 'trimValueCB' ],
 			],
 			'Wiki' => [
 				'label-message' => 'resourceloaderarticles-wiki',
 				'type' => 'text',
 				'required' => true,
 				'default' => $row->rla_wiki,
+				'filter-callback' => [ $this, 'trimValueCB' ],
 			],
 			'Type' => [
 				'class' => 'HTMLSelectField',
@@ -351,6 +355,14 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 			. $this->msg( 'resourceloaderarticles-success-delete' )->text()
 			. '</div>'
 		);
+	}
+
+	/**
+	 * @param string $value
+	 * @return string
+	 */
+	public function trimValueCB( $value ) {
+		return trim( $value );
 	}
 
 }
