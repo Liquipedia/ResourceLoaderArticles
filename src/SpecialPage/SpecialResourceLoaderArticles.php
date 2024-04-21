@@ -158,21 +158,21 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 	 */
 	public function addPageCB( $formData ) {
 		$output = $this->getOutput();
-			$dbw = wfGetDB( DB_PRIMARY );
-			$dbw->insert(
-				'resourceloaderarticles',
-				[
-					'rla_page' => $formData[ 'Page' ],
-					'rla_wiki' => $formData[ 'Wiki' ],
-					'rla_type' => $formData[ 'Type' ],
-					'rla_priority' => intval( $formData[ 'Priority' ] )
-				]
-			);
-			$output->addWikiTextAsContent(
-				'<div class="success">'
-				. $this->msg( 'resourceloaderarticles-success-add' )->text()
-				. '</div>'
-			);
+		$dbw = wfGetDB( DB_PRIMARY );
+		$dbw->insert(
+			'resourceloaderarticles',
+			[
+				'rla_page' => $formData[ 'Page' ],
+				'rla_wiki' => $formData[ 'Wiki' ],
+				'rla_type' => $formData[ 'Type' ],
+				'rla_priority' => intval( $formData[ 'Priority' ] )
+			]
+		);
+		$output->addWikiTextAsContent(
+			'<div class="success">'
+			. $this->msg( 'resourceloaderarticles-success-add' )->text()
+			. '</div>'
+		);
 	}
 
 	/**
@@ -239,24 +239,24 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 	 */
 	public function editPageCB( $formData ) {
 		$output = $this->getOutput();
-			$dbw = wfGetDB( DB_PRIMARY );
-			$dbw->update(
-				'resourceloaderarticles',
-				[
-					'rla_page' => $formData[ 'Page' ],
-					'rla_wiki' => $formData[ 'Wiki' ],
-					'rla_type' => $formData[ 'Type' ],
-					'rla_priority' => intval( $formData[ 'Priority' ] )
-				],
-				[
-					'rla_id' => $formData[ 'Id' ]
-				]
-			);
-			$output->addWikiTextAsContent(
-				'<div class="success">'
-				. $this->msg( 'resourceloaderarticles-success-edit' )->text()
-				. '</div>'
-			);
+		$dbw = wfGetDB( DB_PRIMARY );
+		$dbw->update(
+			'resourceloaderarticles',
+			[
+				'rla_page' => $formData[ 'Page' ],
+				'rla_wiki' => $formData[ 'Wiki' ],
+				'rla_type' => $formData[ 'Type' ],
+				'rla_priority' => intval( $formData[ 'Priority' ] )
+			],
+			[
+				'rla_id' => $formData[ 'Id' ]
+			]
+		);
+		$output->addWikiTextAsContent(
+			'<div class="success">'
+			. $this->msg( 'resourceloaderarticles-success-edit' )->text()
+			. '</div>'
+		);
 	}
 
 	/**
