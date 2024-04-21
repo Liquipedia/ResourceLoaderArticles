@@ -117,6 +117,7 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 				'type' => 'text',
 				'required' => true,
 				'filter-callback' => [ $this, 'trimValueCB' ],
+				'validation-callback' => [ $this, 'validatePageCB' ],
 			],
 			'Wiki' => [
 				'label-message' => 'resourceloaderarticles-wiki',
@@ -210,6 +211,7 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 				'required' => true,
 				'default' => $row->rla_page,
 				'filter-callback' => [ $this, 'trimValueCB' ],
+				'validation-callback' => [ $this, 'validatePageCB' ],
 			],
 			'Wiki' => [
 				'label-message' => 'resourceloaderarticles-wiki',
@@ -363,6 +365,24 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 	 */
 	public function trimValueCB( $value ) {
 		return trim( $value );
+	}
+
+	/**
+	 * @param string $value
+	 * @param array $alldata
+	 * @return bool|Message
+	 */
+	public function validatePageCB( $value, $alldata ) {
+		if (
+			( $alldata[ 'Type' ] === 'style'
+				&& !( (strlen( $value ) > 4 && substr( $value, -4 ) === '.css')
+					|| (strlen( $value ) > 5 && substr( $value, -5 ) === '.less')
+				)
+			) || ( $alldata[ 'Type' ] === 'script' && !( strlen( $value ) > 3 && substr( $value, -3 ) === '.js' ) )
+		) {
+			return $this->msg( 'resourceloaderarticles-error-page-invalid' );
+		}
+		return true;
 	}
 
 }

@@ -25,7 +25,8 @@
 	"resourceloaderarticles-resourcetype-script": "JavaScript",
 	"resourceloaderarticles-resourcetype-style": "Style Sheet",
 
-	"resourceloaderarticles-error-page-invalid": "The resource page name is invalid!",
+	"resourceloaderarticles-error-page-invalid": "The resource page name is invalid.",
+
 	"resourceloaderarticles-success-add": "Resource successfully added",
 	"resourceloaderarticles-success-edit": "Resource successfully edited",
 	"resourceloaderarticles-success-delete": "Resource successfully deleted",
