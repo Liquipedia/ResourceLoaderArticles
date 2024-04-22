@@ -342,7 +342,7 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 	/**
 	 * @param string $value
 	 * @param array $alldata
-	 * @return bool|Message
+	 * @return bool|string
 	 */
 	public function validatePageCB( $value, $alldata ) {
 		if (
@@ -352,7 +352,7 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 				)
 			) || ( $alldata[ 'Type' ] === 'script' && !( strlen( $value ) > 3 && substr( $value, -3 ) === '.js' ) )
 		) {
-			return $this->msg( 'resourceloaderarticles-error-page-invalid' );
+			return $this->msg( 'resourceloaderarticles-error-page-invalid' )->text();
 		}
 		return true;
 	}
