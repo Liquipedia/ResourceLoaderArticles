@@ -113,14 +113,18 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 		$formDescriptor = [
 			'Page' => [
 				'label-message' => 'resourceloaderarticles-page',
+				'help-message' => 'resourceloaderarticles-help-page',
 				'type' => 'text',
 				'required' => true,
+				'filter-callback' => [ $this, 'trimValueCB' ],
+				'validation-callback' => [ $this, 'validatePageCB' ],
 			],
 			'Wiki' => [
 				'label-message' => 'resourceloaderarticles-wiki',
 				'type' => 'text',
 				'required' => true,
 				'default' => 'all',
+				'filter-callback' => [ $this, 'trimValueCB' ],
 			],
 			'Type' => [
 				'class' => 'HTMLSelectField',
@@ -136,6 +140,8 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 				'type' => 'int',
 				'required' => true,
 				'default' => '0',
+				'min' => -1000,
+				'max' => 1000,
 			],
 		];
 
@@ -151,69 +157,22 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 	 * @param array $formData
 	 */
 	public function addPageCB( $formData ) {
+		$dbw = wfGetDB( DB_PRIMARY );
+		$dbw->insert(
+			'resourceloaderarticles',
+			[
+				'rla_page' => $formData[ 'Page' ],
+				'rla_wiki' => $formData[ 'Wiki' ],
+				'rla_type' => $formData[ 'Type' ],
+				'rla_priority' => intval( $formData[ 'Priority' ] )
+			]
+		);
 		$output = $this->getOutput();
-		$store = true;
-		if ( empty( $formData[ 'Page' ] ) ) {
-			$output->addWikiTextAsContent(
-				'<div class="error">'
-				. $this->msg( 'resourceloaderarticles-error-page-empty' )->text()
-				. '</div>'
-			);
-			$store = false;
-		} elseif (
-			(
-				!( substr( $formData[ 'Page' ], -4 ) === '.css' || substr( $formData[ 'Page' ], -5 ) === '.less' )
-				&& $formData[ 'Type' ] === 'style'
-			)
-			|| ( substr( $formData[ 'Page' ], -3 ) !== '.js' && $formData[ 'Type' ] === 'script' )
-		) {
-			$output->addWikiTextAsContent(
-				'<div class="error">'
-				. $this->msg( 'resourceloaderarticles-error-page-invalid' )->text()
-				. '</div>'
-			);
-			$store = false;
-		}
-		if ( empty( $formData[ 'Wiki' ] ) ) {
-			$output->addWikiTextAsContent(
-				'<div class="error">'
-				. $this->msg( 'resourceloaderarticles-error-wiki-empty' )->text()
-				. '</div>'
-			);
-			$store = false;
-		}
-		if ( empty( $formData[ 'Priority' ] ) ) {
-			$output->addWikiTextAsContent(
-				'<div class="error">'
-				. $this->msg( 'resourceloaderarticles-error-priority-empty' )->text()
-				. '</div>'
-			);
-			$store = false;
-		} elseif ( !is_int( $formData[ 'Priority' ] ) ) {
-			$output->addWikiTextAsContent(
-				'<div class="error">'
-				. $this->msg( 'resourceloaderarticles-error-priority-invalid' )->text()
-				. '</div>'
-			);
-			$store = false;
-		}
-		if ( $store ) {
-			$dbw = wfGetDB( DB_PRIMARY );
-			$dbw->insert(
-				'resourceloaderarticles',
-				[
-					'rla_page' => $formData[ 'Page' ],
-					'rla_wiki' => $formData[ 'Wiki' ],
-					'rla_type' => $formData[ 'Type' ],
-					'rla_priority' => $formData[ 'Priority' ]
-				]
-			);
-			$output->addWikiTextAsContent(
-				'<div class="success">'
-				. $this->msg( 'resourceloaderarticles-success-add' )->text()
-				. '</div>'
-			);
-		}
+		$output->addWikiTextAsContent(
+			'<div class="success">'
+			. $this->msg( 'resourceloaderarticles-success-add' )->text()
+			. '</div>'
+		);
 	}
 
 	/**
@@ -225,21 +184,27 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 		$row = $res->fetchObject();
 		$formDescriptor = [
 			'Id' => [
-				'type' => 'hidden',
+				'label-message' => 'resourceloaderarticles-id',
+				'type' => 'int',
 				'required' => true,
+				'disabled' => true,
 				'default' => $row->rla_id,
 			],
 			'Page' => [
 				'label-message' => 'resourceloaderarticles-page',
+				'help-message' => 'resourceloaderarticles-help-page',
 				'type' => 'text',
 				'required' => true,
 				'default' => $row->rla_page,
+				'filter-callback' => [ $this, 'trimValueCB' ],
+				'validation-callback' => [ $this, 'validatePageCB' ],
 			],
 			'Wiki' => [
 				'label-message' => 'resourceloaderarticles-wiki',
 				'type' => 'text',
 				'required' => true,
 				'default' => $row->rla_wiki,
+				'filter-callback' => [ $this, 'trimValueCB' ],
 			],
 			'Type' => [
 				'class' => 'HTMLSelectField',
@@ -256,11 +221,13 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 				'type' => 'int',
 				'required' => true,
 				'default' => $row->rla_priority,
+				'min' => -1000,
+				'max' => 1000,
 			],
 		];
 
 		$htmlForm = HTMLForm::factory( 'ooui', $formDescriptor, $this->getContext() );
-		$htmlForm->setSubmitText( $this->msg( 'resourceloaderarticles-add-page' )->text() );
+		$htmlForm->setSubmitText( $this->msg( 'resourceloaderarticles-edit-page' )->text() );
 		$htmlForm->setFormIdentifier( 'editPageCB' );
 		$htmlForm->setSubmitCallback( [ $this, 'editPageCB' ] );
 
@@ -271,72 +238,25 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 	 * @param array $formData
 	 */
 	public function editPageCB( $formData ) {
+		$dbw = wfGetDB( DB_PRIMARY );
+		$dbw->update(
+			'resourceloaderarticles',
+			[
+				'rla_page' => $formData[ 'Page' ],
+				'rla_wiki' => $formData[ 'Wiki' ],
+				'rla_type' => $formData[ 'Type' ],
+				'rla_priority' => intval( $formData[ 'Priority' ] )
+			],
+			[
+				'rla_id' => $formData[ 'Id' ]
+			]
+		);
 		$output = $this->getOutput();
-		$store = true;
-		if ( empty( $formData[ 'Page' ] ) ) {
-			$output->addWikiTextAsContent(
-				'<div class="error">'
-				. $this->msg( 'resourceloaderarticles-error-page-empty' )->text()
-				. '</div>'
-			);
-			$store = false;
-		} elseif (
-			(
-				!( substr( $formData[ 'Page' ], -4 ) === '.css' || substr( $formData[ 'Page' ], -5 ) === '.less' )
-				&& $formData[ 'Type' ] === 'style'
-			)
-			|| ( substr( $formData[ 'Page' ], -3 ) !== '.js' && $formData[ 'Type' ] === 'script' )
-		) {
-			$output->addWikiTextAsContent(
-				'<div class="error">'
-				. $this->msg( 'resourceloaderarticles-error-page-invalid' )->text()
-				. '</div>'
-			);
-			$store = false;
-		}
-		if ( empty( $formData[ 'Wiki' ] ) ) {
-			$output->addWikiTextAsContent(
-				'<div class="error">'
-				. $this->msg( 'resourceloaderarticles-error-wiki-empty' )->text()
-				. '</div>'
-			);
-			$store = false;
-		}
-		if ( empty( $formData[ 'Priority' ] ) ) {
-			$output->addWikiTextAsContent(
-				'<div class="error">'
-				. $this->msg( 'resourceloaderarticles-error-priority-empty' )->text()
-				. '</div>'
-			);
-			$store = false;
-		} elseif ( !is_int( $formData[ 'Priority' ] ) ) {
-			$output->addWikiTextAsContent(
-				'<div class="error">'
-				. $this->msg( 'resourceloaderarticles-error-priority-invalid' )->text()
-				. '</div>'
-			);
-			$store = false;
-		}
-		if ( $store ) {
-			$dbw = wfGetDB( DB_PRIMARY );
-			$dbw->update(
-				'resourceloaderarticles',
-				[
-					'rla_page' => $formData[ 'Page' ],
-					'rla_wiki' => $formData[ 'Wiki' ],
-					'rla_type' => $formData[ 'Type' ],
-					'rla_priority' => $formData[ 'Priority' ]
-				],
-				[
-					'rla_id' => $formData[ 'Id' ]
-				]
-			);
-			$output->addWikiTextAsContent(
-				'<div class="success">'
-				. $this->msg( 'resourceloaderarticles-success-edit' )->text()
-				. '</div>'
-			);
-		}
+		$output->addWikiTextAsContent(
+			'<div class="success">'
+			. $this->msg( 'resourceloaderarticles-success-edit' )->text()
+			. '</div>'
+		);
 	}
 
 	/**
@@ -348,13 +268,15 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 		$row = $res->fetchObject();
 		$formDescriptor = [
 			'Id' => [
-				'type' => 'hidden',
+				'label-message' => 'resourceloaderarticles-id',
+				'type' => 'int',
 				'required' => true,
 				'disabled' => true,
 				'default' => $row->rla_id,
 			],
 			'Page' => [
 				'label-message' => 'resourceloaderarticles-page',
+				'help-message' => 'resourceloaderarticles-help-page',
 				'type' => 'text',
 				'required' => true,
 				'disabled' => true,
@@ -407,6 +329,32 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 			. $this->msg( 'resourceloaderarticles-success-delete' )->text()
 			. '</div>'
 		);
+	}
+
+	/**
+	 * @param string $value
+	 * @return string
+	 */
+	public function trimValueCB( $value ) {
+		return trim( $value );
+	}
+
+	/**
+	 * @param string $value
+	 * @param array $alldata
+	 * @return bool|string
+	 */
+	public function validatePageCB( $value, $alldata ) {
+		if (
+			( $alldata[ 'Type' ] === 'style'
+				&& !( ( strlen( $value ) > 4 && substr( $value, -4 ) === '.css' )
+					|| ( strlen( $value ) > 5 && substr( $value, -5 ) === '.less' )
+				)
+			) || ( $alldata[ 'Type' ] === 'script' && !( strlen( $value ) > 3 && substr( $value, -3 ) === '.js' ) )
+		) {
+			return $this->msg( 'resourceloaderarticles-error-page-invalid' )->text();
+		}
+		return true;
 	}
 
 }
