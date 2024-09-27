@@ -141,7 +141,7 @@ class ResourceLoaderArticlesModule extends ResourceLoaderWikiModule {
 			$compiler = new SCSSCompiler();
 			$compiledScss = $compiler->compileString( $scss )->getCss();
 		} catch ( \Exception $e ) {
-			$compiledScss = '/* invalid less: ' . $e->getMessage() . ' */';
+			$compiledScss = '/* invalid scss: ' . $e->getMessage() . ' */';
 		}
 		/* end of scss parser */
 
