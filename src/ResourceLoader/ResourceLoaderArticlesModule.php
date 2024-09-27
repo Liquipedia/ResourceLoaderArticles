@@ -104,7 +104,6 @@ class ResourceLoaderArticlesModule extends ResourceLoaderWikiModule {
 	 * @return array
 	 */
 	public function getStyles( ResourceLoaderContext $context ) {
-		$styles = [ 'all' => [ '' ] ];
 		$less = '';
 		$scss = '';
 		foreach ( $this->getPages( $context ) as $titleText => $options ) {
