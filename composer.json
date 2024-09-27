@@ -1,6 +1,7 @@
 {
 	"require": {
-		"mck89/peast": "^1.16"
+		"mck89/peast": "^1.16",
+		"scssphp/scssphp": "^1.13.0"
 	},
 	"require-dev": {
 		"liquipedia/sqllint": "*",

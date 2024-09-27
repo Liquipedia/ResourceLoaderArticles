@@ -16,6 +16,7 @@ use Peast\Syntax\Exception as PeastSyntaxException;
 use ResourceLoader;
 use ResourceLoaderContext;
 use ResourceLoaderWikiModule;
+use ScssPhp\ScssPhp\Compiler as SCSSCompiler;
 
 class ResourceLoaderArticlesModule extends ResourceLoaderWikiModule {
 
@@ -38,7 +39,11 @@ class ResourceLoaderArticlesModule extends ResourceLoaderWikiModule {
 		foreach ( $articles as $article ) {
 			if ( substr( $article, -3 ) === '.js' ) {
 				$pages[ 'MediaWiki:Common.js/' . $article ] = [ 'type' => 'script' ];
-			} elseif ( substr( $article, -4 ) === '.css' || substr( $article, -5 ) === '.less' ) {
+			} elseif (
+				substr( $article, -4 ) === '.css'
+				|| substr( $article, -5 ) === '.less'
+				|| substr( $article, -5 ) === '.scss'
+			) {
 				$pages[ 'MediaWiki:Common.css/' . $article ] = [ 'type' => 'style' ];
 			}
 		}
@@ -99,12 +104,13 @@ class ResourceLoaderArticlesModule extends ResourceLoaderWikiModule {
 	 * @return array
 	 */
 	public function getStyles( ResourceLoaderContext $context ) {
-		$styles = [];
+		$styles = [ 'all' => [ '' ] ];
+		$less = '';
+		$scss = '';
 		foreach ( $this->getPages( $context ) as $titleText => $options ) {
 			if ( $options[ 'type' ] !== 'style' ) {
 				continue;
 			}
-			$media = isset( $options[ 'media' ] ) ? $options[ 'media' ] : 'all';
 			$style = $this->getContent( $titleText, $context );
 			if ( strval( $style ) === '' ) {
 				continue;
@@ -114,33 +120,43 @@ class ResourceLoaderArticlesModule extends ResourceLoaderWikiModule {
 				$style = '/* using @import is forbidden */';
 			}
 
-			if ( !isset( $styles[ $media ] ) ) {
-				$styles[ $media ] = [];
-				$styles[ $media ][ 0 ] = '';
-			}
 			$style = ResourceLoader::makeComment( $titleText ) . $style;
-			$styles[ $media ][ 0 ] .= $style;
-		}
-		foreach ( $styles as $media => $styleItem ) {
-			/* start of less parser */
-			try {
-				$lessc = new Less_Parser;
-				$lessc->parse( $styleItem[ 0 ] );
-				$style = $lessc->getCss();
-			} catch ( exception $e ) {
-				$style = '/* invalid less: ' . $e->getMessage() . ' */';
+			if ( substr( $titleText, -5 ) === '.scss' ) {
+				$scss .= $style;
+			} else {
+				$less .= $style;
 			}
-			/* end of less parser */
-			if ( $this->getFlip( $context ) ) {
-				$style = CSSJanus::transform( $style, true, false );
-			}
-			$style = MemoizedCallable::call(
-					'CSSMin::remap',
-					[ $style, false, $this->getConfig()->get( 'ScriptPath' ), true ]
-			);
-			$styles[ $media ][ 0 ] = $style;
 		}
-		return $styles;
+		/* start of less parser */
+		try {
+			$lessc = new Less_Parser;
+			$lessc->parse( $less );
+			$compiledLess = $lessc->getCss();
+		} catch ( \Exception $e ) {
+			$compiledLess = '/* invalid less: ' . $e->getMessage() . ' */';
+		}
+		/* end of less parser */
+
+		/* start of scss parser */
+		try {
+			$compiler = new SCSSCompiler();
+			$compiledScss = $compiler->compileString( $scss )->getCss();
+		} catch ( \Exception $e ) {
+			$compiledLess = '/* invalid less: ' . $e->getMessage() . ' */';
+		}
+		/* end of scss parser */
+
+		$css = $compiledLess . $compiledScss;
+
+		if ( $this->getFlip( $context ) ) {
+			$css = CSSJanus::transform( $css, true, false );
+		}
+		$css = MemoizedCallable::call(
+			'CSSMin::remap',
+			[ $css, false, $this->getConfig()->get( 'ScriptPath' ), true ]
+		);
+
+		return [ 'all' => [ $css ] ];
 	}
 
 	/**
