@@ -83,7 +83,7 @@ class MainHookHandler implements
 	}
 
 	/**
-	 * Set the CONTENT_MODEL_CSS content handler for less files
+	 * Set the CONTENT_MODEL_CSS content handler for less and scss files
 	 *
 	 * @param Title $title
 	 * @param string &$model
@@ -92,6 +92,9 @@ class MainHookHandler implements
 	public function onContentHandlerDefaultModelFor( $title, &$model ) {
 		if ( $title->getNamespace() === NS_MEDIAWIKI ) {
 			if ( str_ends_with( $title->getText(), '.less' ) ) {
+				$model = CONTENT_MODEL_CSS;
+				return true;
+			} elseif ( str_ends_with( $title->getText(), '.scss' ) ) {
 				$model = CONTENT_MODEL_CSS;
 				return true;
 			}

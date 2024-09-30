@@ -32,5 +32,5 @@
 	"resourceloaderarticles-success-delete": "Resource successfully deleted",
 
 	"resourceloaderarticles-help-page": "Page name of resource (excl. `MediaWiki:Common.[js|css]/`). Valid JS ends with `.js` and valid styling ends with `.css` or `.less`.",
-	"resourceloaderarticles-help-priority": "Priority for loading order of the resource (higher first), falls back to alphabetic order within a single priority class."
+	"resourceloaderarticles-help-priority": "Priority for loading order of the resource (higher first), falls back to alphabetic order within a single priority class. Priority is done in two groups: Less/CSS and SCSS. The first group will always be before the second."
 }
