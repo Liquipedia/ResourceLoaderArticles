@@ -1,6 +1,6 @@
 {
 	"name": "ResourceLoaderArticles",
-	"version": "2.4.0",
+	"version": "2.5.0",
 	"author": [
 		"[https://fo-nttax.de Alex Winkler]"
 	],
@@ -27,7 +27,11 @@
 	},
 	"HookHandlers": {
 		"Main": {
-			"class": "\\Liquipedia\\Extension\\ResourceLoaderArticles\\Hooks\\MainHookHandler"
+			"class": "\\Liquipedia\\Extension\\ResourceLoaderArticles\\Hooks\\MainHookHandler",
+			"services": [
+				"ContentHandlerFactory",
+				"RevisionLookup"
+			]
 		},
 		"Schema": {
 			"class": "\\Liquipedia\\Extension\\ResourceLoaderArticles\\Hooks\\SchemaHookHandler"

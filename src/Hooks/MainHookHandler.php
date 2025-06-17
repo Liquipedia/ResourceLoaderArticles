@@ -2,17 +2,16 @@
 
 namespace Liquipedia\Extension\ResourceLoaderArticles\Hooks;
 
-use ContentHandler;
 use Liquipedia\Extension\ResourceLoaderArticles\ResourceLoader\ResourceLoaderArticlesModule;
+use MediaWiki\Content\ContentHandlerFactory;
 use MediaWiki\Hook\BeforePageDisplayHook;
 use MediaWiki\Hook\MakeGlobalVariablesScriptHook;
-use MediaWiki\MediaWikiServices;
 use MediaWiki\ResourceLoader\Hook\ResourceLoaderRegisterModulesHook;
+use MediaWiki\ResourceLoader\ResourceLoader;
 use MediaWiki\Revision\Hook\ContentHandlerDefaultModelForHook;
 use MediaWiki\Revision\RevisionLookup;
 use MediaWiki\Revision\SlotRecord;
 use OutputPage;
-use ResourceLoader;
 use Skin;
 use Title;
 
@@ -22,6 +21,17 @@ class MainHookHandler implements
 	MakeGlobalVariablesScriptHook,
 	ResourceLoaderRegisterModulesHook
 {
+
+	private ContentHandlerFactory $contentHandlerFactory;
+	private RevisionLookup $revisionLookup;
+
+	public function __construct(
+		ContentHandlerFactory $contentHandlerFactory,
+		RevisionLookup $revisionLookup
+	) {
+		$this->contentHandlerFactory = $contentHandlerFactory;
+		$this->revisionLookup = $revisionLookup;
+	}
 
 	/**
 	 * @param OutputPage $out
@@ -135,7 +145,7 @@ class MainHookHandler implements
 				continue;
 			}
 
-			$handler = ContentHandler::getForTitle( $title );
+			$handler = $this->contentHandlerFactory->getContentHandler( $title->getContentModel() );
 			if ( $handler->isSupportedFormat( CONTENT_FORMAT_CSS ) ) {
 				$format = CONTENT_FORMAT_CSS;
 			} elseif ( $handler->isSupportedFormat( CONTENT_FORMAT_JAVASCRIPT ) ) {
@@ -143,9 +153,7 @@ class MainHookHandler implements
 			} else {
 				continue;
 			}
-			$revision = MediaWikiServices::getInstance()
-				->getRevisionLookup()
-				->getRevisionByTitle( $title, 0, RevisionLookup::READ_NORMAL );
+			$revision = $this->revisionLookup->getRevisionByTitle( $title, 0, RevisionLookup::READ_NORMAL );
 
 			if ( !$revision ) {
 				continue;
