@@ -45,7 +45,7 @@ class MainHookHandler implements
 			$debugMode = ResourceLoader::inDebugMode();
 			$wikiUrl = $config->get( 'ResourceLoaderArticlesWiki' );
 			$scripts = [];
-			$styles = [ 'Variables.css' ];
+			$styles = [];
 			$addScript = false;
 			$addStyle = false;
 			$res = $dbr->select(
