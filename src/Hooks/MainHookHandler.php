@@ -44,7 +44,7 @@ class MainHookHandler implements
 			$scriptPath = substr( $config->get( 'ScriptPath' ), 1 );
 			$debugMode = ResourceLoader::inDebugMode();
 			$wikiUrl = $config->get( 'ResourceLoaderArticlesWiki' );
-			$scripts = [ 'UseStrict.js', 'Polyfill.js', 'Core.js' ];
+			$scripts = [];
 			$styles = [ 'Variables.css' ];
 			$addScript = false;
 			$addStyle = false;
@@ -64,7 +64,6 @@ class MainHookHandler implements
 					$addStyle = true;
 				}
 			}
-			$scripts[] = 'CoreEnd.js';
 
 			if ( $addScript ) {
 				$script = $wikiUrl
