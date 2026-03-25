@@ -14,6 +14,7 @@ use MediaWiki\Revision\SlotRecord;
 use OutputPage;
 use Skin;
 use Title;
+use Wikimedia\Rdbms\IDBAccessObject;
 
 class MainHookHandler implements
 	BeforePageDisplayHook,
@@ -152,7 +153,7 @@ class MainHookHandler implements
 			} else {
 				continue;
 			}
-			$revision = $this->revisionLookup->getRevisionByTitle( $title, 0, RevisionLookup::READ_NORMAL );
+			$revision = $this->revisionLookup->getRevisionByTitle( $title, 0, IDBAccessObject::READ_NORMAL );
 
 			if ( !$revision ) {
 				continue;
