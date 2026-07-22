@@ -97,10 +97,10 @@ class SpecialResourceLoaderArticles extends \SpecialPage {
 				. '</td><td>' . $row->rla_wiki
 				. '</td><td>' . $row->rla_type
 				. '</td><td>'
-				. '<a class="btn btn-primary" href="' . $editTitle->getLocalURL() . '">'
+				. '<a class="button button--primary" href="' . $editTitle->getLocalURL() . '">'
 				. $this->msg( 'resourceloaderarticles-edit' )->text()
 				. '</a>'
-				. '<a class="btn btn-primary" href="' . $deleteTitle->getLocalURL() . '">'
+				. '<a class="button button--primary" href="' . $deleteTitle->getLocalURL() . '">'
 				. $this->msg( 'resourceloaderarticles-delete' )->text()
 				. '</a>'
 				. '</td></tr>'
