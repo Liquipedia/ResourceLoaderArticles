@@ -8,6 +8,7 @@ use MediaWiki\Hook\BeforePageDisplayHook;
 use MediaWiki\Hook\MakeGlobalVariablesScriptHook;
 use MediaWiki\ResourceLoader\Hook\ResourceLoaderRegisterModulesHook;
 use MediaWiki\ResourceLoader\ResourceLoader;
+use MediaWiki\ResourceLoader as RL;
 use MediaWiki\Revision\Hook\ContentHandlerDefaultModelForHook;
 use MediaWiki\Revision\RevisionLookup;
 use MediaWiki\Revision\SlotRecord;
@@ -43,7 +44,7 @@ class MainHookHandler implements
 			$dbr = wfGetDB( DB_REPLICA );
 			$config = $out->getConfig();
 			$scriptPath = substr( $config->get( 'ScriptPath' ), 1 );
-			$debugMode = ResourceLoader::inDebugMode();
+			$debugMode = RL\Context::debugFromString( $out->getRequest()->getRawVal( 'debug' ) );
 			$wikiUrl = $config->get( 'ResourceLoaderArticlesWiki' );
 			$scripts = [];
 			$styles = [];
