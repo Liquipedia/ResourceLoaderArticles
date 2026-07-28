@@ -6,9 +6,9 @@ use Liquipedia\Extension\ResourceLoaderArticles\ResourceLoader\ResourceLoaderArt
 use MediaWiki\Content\ContentHandlerFactory;
 use MediaWiki\Hook\BeforePageDisplayHook;
 use MediaWiki\Hook\MakeGlobalVariablesScriptHook;
+use MediaWiki\ResourceLoader as RL;
 use MediaWiki\ResourceLoader\Hook\ResourceLoaderRegisterModulesHook;
 use MediaWiki\ResourceLoader\ResourceLoader;
-use MediaWiki\ResourceLoader as RL;
 use MediaWiki\Revision\Hook\ContentHandlerDefaultModelForHook;
 use MediaWiki\Revision\RevisionLookup;
 use MediaWiki\Revision\SlotRecord;
