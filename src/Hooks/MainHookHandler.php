@@ -6,6 +6,7 @@ use Liquipedia\Extension\ResourceLoaderArticles\ResourceLoader\ResourceLoaderArt
 use MediaWiki\Content\ContentHandlerFactory;
 use MediaWiki\Hook\BeforePageDisplayHook;
 use MediaWiki\Hook\MakeGlobalVariablesScriptHook;
+use MediaWiki\ResourceLoader as RL;
 use MediaWiki\ResourceLoader\Hook\ResourceLoaderRegisterModulesHook;
 use MediaWiki\ResourceLoader\ResourceLoader;
 use MediaWiki\Revision\Hook\ContentHandlerDefaultModelForHook;
@@ -43,7 +44,7 @@ class MainHookHandler implements
 			$dbr = wfGetDB( DB_REPLICA );
 			$config = $out->getConfig();
 			$scriptPath = substr( $config->get( 'ScriptPath' ), 1 );
-			$debugMode = ResourceLoader::inDebugMode();
+			$debugMode = RL\Context::debugFromString( $out->getRequest()->getRawVal( 'debug' ) );
 			$wikiUrl = $config->get( 'ResourceLoaderArticlesWiki' );
 			$scripts = [];
 			$styles = [];
