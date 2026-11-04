@@ -20,7 +20,7 @@ use ScssPhp\ScssPhp\Compiler as SCSSCompiler;
 
 class ResourceLoaderArticlesModule extends WikiModule {
 
-	private const USERJSPARSE_CACHE_VERSION = 3;
+	private const USERJSPARSE_CACHE_VERSION = 4;
 
 	/**
 	 * Get list of pages used by this module
