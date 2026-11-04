@@ -76,7 +76,7 @@ class ResourceLoaderArticlesModule extends WikiModule {
 			$cache::TTL_WEEK,
 			static function () use ( $contents, $fileName ) {
 				try {
-					Peast::ES2020( $contents )->parse();
+					Peast::ES2024( $contents )->parse();
 				} catch ( PeastSyntaxException $e ) {
 					return $e->getMessage() . " on line " . $e->getPosition()->getLine();
 				}
